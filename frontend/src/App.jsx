@@ -4,10 +4,9 @@ import styled from 'styled-components';
 import React, { useState } from "react";
 
 import {
-  firebaseAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  sendEmailVerification
+  firebaseAuth, createUserWithEmailAndPassword,
+  signInWithEmailAndPassword, sendEmailVerification,
+  EmailAuthProvider
 } from "./firebase-config";
 import axios from "axios";
 
@@ -92,6 +91,23 @@ function App() {
     }
   }
 
+  const verifyAuth = () => {
+    // For an email/password user. Prompt the user for the password again.
+    axios({
+      method: 'POST',
+      url: `https://securetoken.googleapis.com/v1/token?key=` + process.env.REACT_APP_FB_API_KEY,
+      headers: {
+        "Content-Type": `application/x-www-form-urlencoded`,
+      },
+      data: {
+        'grant_type': 'refresh_token',
+        'refresh_token' : 'APJWN8cTeMA1F480VhgW5WQ3LwIzny_n1cbQ1VhSChS8KLRc9Gpi0yu-l1j3K41JULJuci8wwRrMOGlRmmVrWd3UIFT-8aeisY8HWaXcfmusXjhTj8uovrb7i3AKTN4eAwp0jcPZpjRoqzGRKM0E8U8hRLYwdxJOB-EzLX2jPgVhbAst511jo422QICtHOyvc9LTEqgQUUSnXCmm5lKWLo4wj0otJVj8AA'
+      }
+    }).then((response) => {
+      console.log(response);
+    })
+  }
+
   const fileDownload = (event) => {
     console.log("click");
 
@@ -171,6 +187,7 @@ function App() {
         </form>
         <h3>{ errorMsg }</h3>
       </div>
+      <button onClick={verifyAuth}>token re</button>
       <br/>
       <div>
         <FileDown onClick={ fileDownload }>Tayoverse DownLoad</FileDown>
