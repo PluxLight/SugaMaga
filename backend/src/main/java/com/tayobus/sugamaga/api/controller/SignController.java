@@ -96,7 +96,7 @@ public class SignController {
             // Token is valid and not revoked.
             String uid = decodedToken.getUid();
 
-            return new ResponseEntity<>(uid, HttpStatus.CREATED);
+            return new ResponseEntity<>(uid, HttpStatus.OK);
         } catch (FirebaseAuthException e) {
             if (e.getAuthErrorCode() == AuthErrorCode.EXPIRED_ID_TOKEN) {
                 // Token has been revoked. Inform the user to re-authenticate or signOut() the user.
