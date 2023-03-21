@@ -4,6 +4,8 @@ using System.Collections;
 using System;
 using MiniJSON;
 using System.Collections.Generic;
+using UnityEditor.PackageManager.Requests;
+using System.Threading.Tasks;
 
 public class ApiManager : MonoBehaviour
 {
@@ -13,64 +15,32 @@ public class ApiManager : MonoBehaviour
     private string REFRESH_TOKEN = "APJWN8epyB1N-XKKkiqV3B0HimZNzfbDEfkI8FldGXv14Y0JTw-pPlwKfScPkKm_zbq3ugjt6o-in27EQ4_wv27jG8h1hC6A_LaiOXbDbYhDCIIM3kak1vLqFtyJlWpaSdQMVwapQQ7b7d5fTwp6wnjnpyNuxMedwvIUyOglLgaWZlhRdZzNCgKTs_a3eN9lMpRkg2ttFm-B1mq575uf3M2Rh6EvkmTUWw";
     private string GOOGLE_KEY = "AIzaSyAbrcuxBD_VyzQDSlAJfxPUZOfsx8wfNy0";
     private string SERVER_URL = "http://localhost:18081/api/";
-
-    public static ApiManager instance;
-
-    private void Awake()
-    {
-        instance = this;
+    
+    static ApiManager instance;
+    static GameObject container;
+    static GameObject Container {
+        get { return container; }
     }
 
-    public string CallApi(string url, string method, string json, Action<string> callback)
-    {
-        switch (method)
-        {
-            case "GET":
-                StartCoroutine( GetStart(url, json, (request) =>
-                {
-                    if (request.responseCode == 200)
-                    {
-                        string jsonString = request.downloadHandler.text;
-                        Debug.Log("jsonString : " + jsonString);
-                        callback(jsonString);
-                    }
-                    else
-                    {
-                        callback(null);
-                    }
-                }
-                ));
-                break;
-            case "POST":
-                break;
-            case "PUT":
-                 break;
-            case "DELETE":
-                break;
-        }
 
-        return null;
-    }
-
-    public IEnumerator GetStart(string url, string json, Action<UnityWebRequest> callback)
+    public static ApiManager Instance
     {
-        /*if (json != null)
+        get
         {
-            json = json.Replace("{", "");
-            json = json.Replace("}", "");
-            json = json.Replace("\"", "");
-            string[] jsonParse = json.Split(',');
-            string temp = "?";
-            
-            foreach (string i in jsonParse)
+            if ( !instance )
             {
-                temp += i.Split(":")[0] + "=" + i.Split(":")[1] + "&";
+                container = new GameObject();
+                container.name = "ApiManager";
+                instance = container.AddComponent( typeof(ApiManager) ) as ApiManager;
             }
-            temp = temp.Substring(0, temp.Length - 1);
 
-            url += temp;
-        }*/
+            return instance;
+        }
+    }
 
+
+    public void GET(string url, string json, Action<UnityWebRequest> callback)
+    {
         if (json != null)
         {
             var dict = Json.Deserialize(json) as Dictionary<string, object>;
@@ -87,53 +57,123 @@ public class ApiManager : MonoBehaviour
             url += temp;
         }
 
-        Debug.Log("url : " + url);
-
-        using (UnityWebRequest request = UnityWebRequest.Get(SERVER_URL + url))
+        if ( !Verify() )
         {
-            request.SetRequestHeader("accessToken", ACCESS_TOKEN);
-            yield return request.SendWebRequest();
-
-            // Debug.Log(request.result);
-            // Debug.Log(request.downloadHandler.text);
-
-            if ("EXPIRED_ID_TOKEN".Equals(request.downloadHandler.text))
-            {
-                // Debug.Log("run refresh");
-                StartCoroutine( RefreshToken() );
-            }
-
-            Debug.Log("Server responded: " + request.downloadHandler.text);
-            callback(request);
+            callback(null);
         }
+
+        UnityWebRequest request = UnityWebRequest.Get(SERVER_URL + url);
+        request.SetRequestHeader("accessToken", ACCESS_TOKEN);
+
+        StartCoroutine( WaitRequest(request, callback) );
     }
 
-    public IEnumerator RefreshToken()
+    public void POST(string url, string json, Action<UnityWebRequest> callback)
     {
+        WWWForm form = new WWWForm();
+
+        if (json != null)
+        {
+            var dict = Json.Deserialize(json) as Dictionary<string, object>;
+            List<string> keys = new List<string>(dict.Keys);
+
+            foreach (string key in keys)
+            {
+                form.AddField(key, (string)dict[key]);
+            }
+        }
+
+        if (!Verify())
+        {
+            callback(null);
+        }
+
+        UnityWebRequest request = UnityWebRequest.Post(SERVER_URL + url, form);
+        request.SetRequestHeader("accessToken", ACCESS_TOKEN);
+
+        StartCoroutine(WaitRequest(request, callback));
+    }
+
+    public void PUT(string url, string json, Action<UnityWebRequest> callback)
+    {
+        byte[] data = null;
+
+        if (json != null)
+        {
+            data = System.Text.Encoding.UTF8.GetBytes(json);
+        }
+
+        if (!Verify())
+        {
+            callback(null);
+        }
+
+        UnityWebRequest request = UnityWebRequest.Put(SERVER_URL + url, data);
+        request.SetRequestHeader("accessToken", ACCESS_TOKEN);
+
+        StartCoroutine(WaitRequest(request, callback));
+    }
+
+
+    public IEnumerator WaitRequest(UnityWebRequest request, Action<UnityWebRequest> callback)
+    {
+        yield return request.SendWebRequest();
+        callback(request);
+    }
+
+
+    public bool Verify()
+    {
+        Debug.Log("Start Verify");
+
+        bool verifyResult = true;
+        UnityWebRequest request = UnityWebRequest.Get(SERVER_URL + "sign/verify");
+        request.SetRequestHeader("accessToken", ACCESS_TOKEN);
+
+        StartCoroutine( WaitRequest(request, delegate (UnityWebRequest result)
+        {
+            if (result.responseCode == 403)
+            {
+                Debug.Log("Refresh Forbidden");
+                
+                if (!RefreshToken())
+                {
+                    verifyResult = false;
+                }
+            }
+            else if (request.responseCode == 400)
+            {
+                Debug.Log("Refresh Bad Request");
+                verifyResult = false;
+            }
+
+        } ));
+
+        Debug.Log("End Verify");
+
+        return verifyResult;
+    }
+
+
+    public bool RefreshToken()
+    {
+        bool refreshResult = true;
+
+        Debug.Log("Start RefreshToken");
+
         WWWForm form = new WWWForm();
         form.AddField("grant_type", "refresh_token");
         form.AddField("refresh_token", REFRESH_TOKEN);
         string refreshUrl = "https://securetoken.googleapis.com/v1/token?key=" + GOOGLE_KEY;
 
-        using (UnityWebRequest request = UnityWebRequest.Post(refreshUrl, form))
-        {
-            request.SetRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            yield return request.SendWebRequest();
+        UnityWebRequest request = UnityWebRequest.Post(refreshUrl, form);
+        request.SetRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-            /*Debug.Log("request : " + request);
-            Debug.Log("request.result : " + request.result);
-            Debug.Log("request.downloadHandler : " + request.downloadHandler.text);
-            Debug.Log("accesstoken : " + request.downloadHandler);*/
+        var operation = request.SendWebRequest();
 
-            if (request.result != UnityWebRequest.Result.Success)
-            {
-                Debug.Log("Error : " + request.error);
-            }
-            else
-            {
-                Debug.Log("Form upload complete!");
-            }
-        }
+        Debug.Log("End RefreshToken");
+
+        return refreshResult;
     }
 
 }
