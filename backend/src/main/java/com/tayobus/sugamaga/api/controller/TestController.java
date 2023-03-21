@@ -86,17 +86,19 @@ public class TestController {
 
     @Operation(summary = "get test", description = "GET METHOD 테스트 DB 연동")
     @GetMapping("/4")
-    public ResponseEntity<?> test4(@RequestParam String str_col, @RequestParam int int_col) {
+    public ResponseEntity<?> test4(@RequestParam String strCol, @RequestParam int intCol) {
         logger.info("api test 4");
 
         TestTableRequest testTableRequest = new TestTableRequest();
-        testTableRequest.setIntCol(int_col);
-        testTableRequest.setStrCol(str_col);
+        testTableRequest.setIntCol(intCol);
+        testTableRequest.setStrCol(strCol);
 
         try {
             List<TestTable> testTable = testTableService.testGet(testTableRequest);
+            Map<String, Object> res = new HashMap<>();
+            res.put("result", testTable);
 
-            return new ResponseEntity<>(testTable, HttpStatus.OK);
+            return new ResponseEntity<>(res, HttpStatus.OK);
         } catch (Exception e) {
             logger.info(e.toString());
 
@@ -104,9 +106,9 @@ public class TestController {
         }
     }
 
-    @Operation(summary = "post test", description = "GET METHOD 테스트 DB 연동")
+    @Operation(summary = "post test", description = "Post METHOD 테스트 DB 연동")
     @PostMapping("/5")
-    public ResponseEntity<?> test5(@RequestBody TestTableRequest testTableRequest) {
+    public ResponseEntity<?> test5(@RequestBody TestTableRequest testTableRequest, HttpServletRequest httpServletRequest) {
         logger.info("api test 5");
 
         try {
