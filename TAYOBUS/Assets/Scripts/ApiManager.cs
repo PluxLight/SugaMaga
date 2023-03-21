@@ -70,26 +70,16 @@ public class ApiManager : MonoBehaviour
 
     public void POST(string url, string json, Action<UnityWebRequest> callback)
     {
-        WWWForm form = new WWWForm();
-
-        if (json != null)
-        {
-            var dict = Json.Deserialize(json) as Dictionary<string, object>;
-            List<string> keys = new List<string>(dict.Keys);
-
-            foreach (string key in keys)
-            {
-                form.AddField(key, (string)dict[key]);
-            }
-        }
-
-        if (!Verify())
+        /*if (!Verify())
         {
             callback(null);
-        }
+        }*/
 
-        UnityWebRequest request = UnityWebRequest.Post(SERVER_URL + url, form);
-        request.SetRequestHeader("accessToken", ACCESS_TOKEN);
+        UnityWebRequest request = UnityWebRequest.Post(SERVER_URL + url, json);
+        /*request.SetRequestHeader("accessToken", ACCESS_TOKEN);*/
+        byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(json);
+        request.uploadHandler = new UploadHandlerRaw(jsonToSend);
+        request.SetRequestHeader("Content-Type", "application/json");
 
         StartCoroutine(WaitRequest(request, callback));
     }
