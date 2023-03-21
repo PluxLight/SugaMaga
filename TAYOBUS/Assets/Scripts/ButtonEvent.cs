@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
+using MiniJSON;
 
 public class ButtonEvent : MonoBehaviour
 {
@@ -26,36 +28,51 @@ public class ButtonEvent : MonoBehaviour
 
     public void OnClickTest1()
     {
-        Debug.Log("Onclick event 1");
-        Debug.Log("before testA : " + testA);
-
-        ApiManager.instance.CallApi("test/1", "GET", null, (res) =>
+        ApiManager.Instance.GET("test/1", null, delegate (UnityWebRequest request)
         {
-            testA = res;
+            Debug.Log(request.downloadHandler.text);
         });
-
-        Debug.Log("after testA : " + testA);
     }
 
     public void OnClickTest2()
     {
-        Debug.Log("Onclick event 2");
-        /*ApiManager.instance.CallApi("test/2", "GET");*/
+
+        ApiManager.Instance.GET("test/2", null, delegate (UnityWebRequest request)
+        {
+            Debug.Log(request.downloadHandler.text);
+        });
     }
 
     public void OnClickTest3()
     {
-        Debug.Log("Onclick event 3");
+        /*Debug.Log("Onclick event 3");
 
         PlayerInfo playerInfo = new PlayerInfo();
         playerInfo.nickname = "unity";
         playerInfo.level = 1;
-        string json = JsonUtility.ToJson(playerInfo);
+        string json = JsonUtility.ToJson(playerInfo);*/
 
-        ApiManager.instance.CallApi("test/3", "GET", json, (res) =>
+        /*ApiManager.instance.CallApi("test/3", "GET", json, (res) =>
         {
             Debug.Log(res);
             testA = res;
+        });*/
+
+        var str = new Dictionary<string, object>();
+        var res = new Dictionary<string, object>();
+        str.Add("nickname", "unity");
+        str.Add("level", 1);
+
+        var data = Json.Serialize(str);
+
+        ApiManager.Instance.GET("test/3", data, delegate (UnityWebRequest request)
+        {
+            /*Debug.Log(request.downloadHandler.text);*/
+            var dict = Json.Deserialize(request.downloadHandler.text) as Dictionary<string, object>;
+            Debug.Log(dict["result"]);
+            Debug.Log(dict["nickname"]);
+            Debug.Log(dict["level"]);
+
         });
 
     }
