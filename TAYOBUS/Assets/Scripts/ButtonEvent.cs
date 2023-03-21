@@ -54,7 +54,6 @@ public class ButtonEvent : MonoBehaviour
     public void OnClickTest3()
     {
         var str = new Dictionary<string, object>();
-        var res = new Dictionary<string, object>();
         str.Add("nickname", "unity");
         str.Add("level", 1);
 
@@ -90,7 +89,9 @@ public class ButtonEvent : MonoBehaviour
 
             for (int i = 0; i < TestTableData.Length; i++)
             {
-                Debug.Log($"TestTableData[i].pk = {TestTableData[i].pk}, TestTableData[i].intCol = {TestTableData[i].intCol}, TestTableData[i].strCol = {TestTableData[i].strCol}");
+                Debug.Log($"TestTableData[i].pk = {TestTableData[i].pk}, " +
+                    $"TestTableData[i].intCol = {TestTableData[i].intCol}, " +
+                    $"TestTableData[i].strCol = {TestTableData[i].strCol}");
             }
         });
     }
@@ -106,6 +107,22 @@ public class ButtonEvent : MonoBehaviour
         var data = Json.Serialize(str);
 
         ApiManager.Instance.POST("test/5", data, delegate (UnityWebRequest request)
+        {
+            Debug.Log("res download text : " + request.downloadHandler.text);
+        });
+    }
+
+    public void OnClickTest6()
+    {
+
+        var str = new Dictionary<string, object>();
+        var res = new Dictionary<string, object>();
+        str.Add("hair", 4);
+        str.Add("cap", 4);
+
+        var data = Json.Serialize(str);
+
+        ApiManager.Instance.PUT("test/6", data, delegate (UnityWebRequest request)
         {
             Debug.Log("res download text : " + request.downloadHandler.text);
         });
