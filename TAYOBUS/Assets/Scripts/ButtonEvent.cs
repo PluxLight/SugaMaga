@@ -1,5 +1,5 @@
 using System;
-using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -17,6 +17,14 @@ public class ButtonEvent : MonoBehaviour
         {
             return JsonUtility.FromJson<PlayerInfo>(jsonString);
         }
+    }
+
+    [System.Serializable]
+    public class TestTable
+    {
+        public int pk;
+        public int intCol;
+        public string strCol;
     }
 
     public string testA = "before";
@@ -45,19 +53,6 @@ public class ButtonEvent : MonoBehaviour
 
     public void OnClickTest3()
     {
-        /*Debug.Log("Onclick event 3");
-
-        PlayerInfo playerInfo = new PlayerInfo();
-        playerInfo.nickname = "unity";
-        playerInfo.level = 1;
-        string json = JsonUtility.ToJson(playerInfo);*/
-
-        /*ApiManager.instance.CallApi("test/3", "GET", json, (res) =>
-        {
-            Debug.Log(res);
-            testA = res;
-        });*/
-
         var str = new Dictionary<string, object>();
         var res = new Dictionary<string, object>();
         str.Add("nickname", "unity");
@@ -74,7 +69,46 @@ public class ButtonEvent : MonoBehaviour
             Debug.Log(dict["level"]);
 
         });
+    }
 
+    public void OnClickTest4()
+    {
+
+        var str = new Dictionary<string, object>();
+        var res = new Dictionary<string, object>();
+        str.Add("strCol", "unity");
+        str.Add("intCol", 1);
+
+        var data = Json.Serialize(str);
+
+        ApiManager.Instance.GET("test/4", data, delegate (UnityWebRequest request)
+        {
+            Debug.Log("res download text : " + request.downloadHandler.text);
+
+            var TestTableData = JsonHelper.FromJson<TestTable>(request.downloadHandler.text);
+            Debug.Log($"animalData = ${TestTableData.Length}");
+
+            for (int i = 0; i < TestTableData.Length; i++)
+            {
+                Debug.Log($"TestTableData[i].pk = {TestTableData[i].pk}, TestTableData[i].intCol = {TestTableData[i].intCol}, TestTableData[i].strCol = {TestTableData[i].strCol}");
+            }
+        });
+    }
+
+    public void OnClickTest5()
+    {
+
+        var str = new Dictionary<string, object>();
+        var res = new Dictionary<string, object>();
+        str.Add("strCol", "unity");
+        str.Add("intCol", 1);
+
+        var data = Json.Serialize(str);
+
+        ApiManager.Instance.POST("test/5", data, delegate (UnityWebRequest request)
+        {
+            Debug.Log("res download text : " + request.downloadHandler.text);
+        });
     }
 
 }
