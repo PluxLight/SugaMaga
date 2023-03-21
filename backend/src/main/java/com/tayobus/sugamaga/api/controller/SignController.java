@@ -15,10 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -55,33 +52,11 @@ public class SignController {
         }
     }
 
-    @Operation(summary = "리프레시", description = "리프레시 토큰 입력")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "refreshToken", value = "firebase 로그인 성공 후 발급 받은 refreshToken", required = true, dataType = "String", paramType = "header")
-    })
-    @PostMapping("/refresh")
-    public ResponseEntity<?> refresh(HttpServletRequest httpServletRequest) throws FirebaseAuthException {
-        logger.info("refresh");
-
-        String idToken = httpServletRequest.getHeader("refreshToken");
-        logger.info(idToken);
-
-        if ( true ) {
-
-            logger.info("Sign Up Success!");
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        }
-        else {
-
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-    }
-
     @Operation(summary = "인증 유효 확인", description = "access token 입력")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "accessToken", value = "firebase 로그인 성공 후 발급 받은 accessToken", required = true, dataType = "String", paramType = "header")
     })
-    @PostMapping("/verify")
+    @GetMapping("/verify")
     public ResponseEntity<?> verify(HttpServletRequest httpServletRequest) throws FirebaseAuthException {
         logger.info("verify");
 
@@ -96,7 +71,7 @@ public class SignController {
             // Token is valid and not revoked.
             String uid = decodedToken.getUid();
 
-            return new ResponseEntity<>(uid, HttpStatus.CREATED);
+            return new ResponseEntity<>(uid, HttpStatus.OK);
         } catch (FirebaseAuthException e) {
             if (e.getAuthErrorCode() == AuthErrorCode.EXPIRED_ID_TOKEN) {
                 // Token has been revoked. Inform the user to re-authenticate or signOut() the user.
