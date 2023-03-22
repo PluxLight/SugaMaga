@@ -11,8 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Builder
-@Table
-@Getter
+@Table(name = "user")
 @DynamicInsert
 public class User {
     @Id
