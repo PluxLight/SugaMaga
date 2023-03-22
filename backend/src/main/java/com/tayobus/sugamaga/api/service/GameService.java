@@ -1,0 +1,29 @@
+package com.tayobus.sugamaga.api.service;
+
+import com.tayobus.sugamaga.db.entity.DropTable;
+import com.tayobus.sugamaga.db.repository.DropTableRepository;
+import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class GameService {
+    private final Logger logger = LoggerFactory.getLogger(GameService.class);
+    private final DropTableRepository dropTableRepository;
+
+    public List<DropTable> getDropTable() {
+        logger.info("get drop table list");
+
+        return dropTableRepository.findAll();
+    }
+
+    public List<DropTable> getTargetDropTable(int tableIdx) {
+        logger.info("get Target drop table list");
+
+        return dropTableRepository.findByTableIdx(tableIdx);
+    }
+}
