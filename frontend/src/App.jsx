@@ -15,8 +15,10 @@ function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("　");
-  const [user, setUser] = useState();
-  const [isAppropriate, setIsAppropriate] = useState();
+  // const [user, setUser] = useState();
+  const [setUser] = useState();
+  // const [isAppropriate, setIsAppropriate] = useState();
+const [setIsAppropriate] = useState();
 
   const emailChange = ({ target: { value } }) => {
     setEmail(value);
@@ -182,10 +184,10 @@ function App() {
 
 export default App;
 
-const Login = styled.button`
-  height: 40px;
-  border-radius: 12px;
-`;
+// const Login = styled.button`
+//   height: 40px;
+//   border-radius: 12px;
+// `;
 
 const FileDown = styled.button`
   height: 40px;
