@@ -4,6 +4,7 @@ import com.google.firebase.auth.AuthErrorCode;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
+import com.tayobus.sugamaga.api.request.CustomRequest;
 import com.tayobus.sugamaga.api.request.TestTableRequest;
 import com.tayobus.sugamaga.api.service.TestTableService;
 import com.tayobus.sugamaga.db.entity.TestTable;
@@ -113,6 +114,37 @@ public class TestController {
 
         try {
             testTableService.testPost(testTableRequest);
+
+            return new ResponseEntity<>("Success", HttpStatus.OK);
+        } catch (Exception e) {
+            logger.info(e.toString());
+
+            return new ResponseEntity<>("Fail", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Operation(summary = "put test", description = "Put METHOD 테스트 DB 연동")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "accessToken",
+                    value = "firebase 로그인 성공 후 발급 받은 accessToken",
+                    required = true, dataType = "String", paramType = "header")
+    })
+    @PutMapping("/6")
+    public ResponseEntity<?> test6(@RequestBody CustomRequest customRequest, HttpServletRequest httpServletRequest) {
+        logger.info("api test 6");
+
+        logger.info(customRequest.toString());
+
+        String idToken = httpServletRequest.getHeader("accessToken");
+
+        try {
+            FirebaseToken decodedToken = FirebaseAuth.getInstance()
+                    .verifyIdToken(idToken);
+
+            customRequest.setUid(decodedToken.getUid());
+            logger.info(customRequest.toString());
+
+            testTableService.testPut(customRequest);
 
             return new ResponseEntity<>("Success", HttpStatus.OK);
         } catch (Exception e) {
