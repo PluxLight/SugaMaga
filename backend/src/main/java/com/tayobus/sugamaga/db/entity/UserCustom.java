@@ -1,10 +1,7 @@
 package com.tayobus.sugamaga.db.entity;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
@@ -17,7 +14,7 @@ import javax.persistence.*;
 @Table(name = "user_custom")
 @DynamicInsert
 public class UserCustom {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JoinColumn(name = "user_custom_idx")
