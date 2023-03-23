@@ -1,8 +1,10 @@
 package com.tayobus.sugamaga.api.service;
 
 import com.tayobus.sugamaga.api.request.HistoryRequest;
+import com.tayobus.sugamaga.db.entity.ConsumableItem;
 import com.tayobus.sugamaga.db.entity.DropTable;
 import com.tayobus.sugamaga.db.entity.History;
+import com.tayobus.sugamaga.db.repository.ConsumableItemRepository;
 import com.tayobus.sugamaga.db.repository.DropTableRepository;
 import com.tayobus.sugamaga.db.repository.HistoryRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,7 @@ public class GameService {
     private final Logger logger = LoggerFactory.getLogger(GameService.class);
     private final DropTableRepository dropTableRepository;
     private final HistoryRepository historyRepository;
+    private final ConsumableItemRepository consumableItemRepository;
 
     public List<DropTable> getDropTable() {
         logger.info("get drop table list");
@@ -29,6 +32,18 @@ public class GameService {
         logger.info("get Target drop table list");
 
         return dropTableRepository.findByTableIdx(tableIdx);
+    }
+
+    public List<ConsumableItem> getConsumableItem() {
+        logger.info("get consumable Item list");
+
+        return consumableItemRepository.findAll();
+    }
+
+    public List<ConsumableItem> getTargetConsumableItem(int consumableItemIdx) {
+        logger.info("get target consumable Item list");
+
+        return consumableItemRepository.findByConsumableItemIdx(consumableItemIdx);
     }
 
     public void saveHistory(HistoryRequest request) {
@@ -46,4 +61,5 @@ public class GameService {
 
         return historyRepository.findAllByUid(uid);
     }
+
 }

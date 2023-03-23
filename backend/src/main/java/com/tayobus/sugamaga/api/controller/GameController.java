@@ -4,6 +4,7 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.tayobus.sugamaga.api.common.utils.TokenUtils;
 import com.tayobus.sugamaga.api.request.HistoryRequest;
 import com.tayobus.sugamaga.api.service.GameService;
+import com.tayobus.sugamaga.db.entity.ConsumableItem;
 import com.tayobus.sugamaga.db.entity.DropTable;
 import com.tayobus.sugamaga.db.entity.History;
 import io.swagger.annotations.Api;
@@ -54,6 +55,31 @@ public class GameController {
 
             Map<String, Object> result = new HashMap<>();
             result.put(RESULT, dropTableList);
+
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.info(e.toString());
+
+            return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Operation(summary = "소비 아이템 조회", description = "consumeable item get")
+    @GetMapping("/consume")
+    public ResponseEntity<?> getConsumableItem(@RequestParam int consumableItemIdx) {
+        logger.info("get ConsumableItem");
+
+        try {
+            List<ConsumableItem> consumableItemList = new ArrayList<>();
+            if (consumableItemIdx == 0) {
+                consumableItemList = gameService.getConsumableItem();
+            }
+            else {
+                consumableItemList = gameService.getTargetConsumableItem(consumableItemIdx);
+            }
+
+            Map<String, Object> result = new HashMap<>();
+            result.put(RESULT, consumableItemList);
 
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception e) {
