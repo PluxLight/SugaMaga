@@ -1,7 +1,10 @@
 package com.tayobus.sugamaga.api.service;
 
+import com.tayobus.sugamaga.api.request.HistoryRequest;
 import com.tayobus.sugamaga.db.entity.DropTable;
+import com.tayobus.sugamaga.db.entity.History;
 import com.tayobus.sugamaga.db.repository.DropTableRepository;
+import com.tayobus.sugamaga.db.repository.HistoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +17,7 @@ import java.util.List;
 public class GameService {
     private final Logger logger = LoggerFactory.getLogger(GameService.class);
     private final DropTableRepository dropTableRepository;
+    private final HistoryRepository historyRepository;
 
     public List<DropTable> getDropTable() {
         logger.info("get drop table list");
@@ -25,5 +29,15 @@ public class GameService {
         logger.info("get Target drop table list");
 
         return dropTableRepository.findByTableIdx(tableIdx);
+    }
+
+    public void saveHistory(HistoryRequest request) {
+        historyRepository.save(History.builder()
+                        .gameRoomIdx(request.getGameRoomIdx())
+                        .uid(request.getUid())
+                        .resultRank(request.getResultRank())
+                        .resultKill(request.getResultKill())
+                        .mapIdx(request.getMapIdx())
+                .build());
     }
 }
