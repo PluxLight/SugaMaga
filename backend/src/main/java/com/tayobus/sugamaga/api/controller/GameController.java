@@ -6,6 +6,7 @@ import com.tayobus.sugamaga.api.request.HistoryRequest;
 import com.tayobus.sugamaga.api.service.GameService;
 import com.tayobus.sugamaga.db.entity.ConsumableItem;
 import com.tayobus.sugamaga.db.entity.DropTable;
+import com.tayobus.sugamaga.db.entity.EquipmentItem;
 import com.tayobus.sugamaga.db.entity.History;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -67,7 +68,7 @@ public class GameController {
     @Operation(summary = "소비 아이템 조회", description = "consumeable item get")
     @GetMapping("/consume")
     public ResponseEntity<?> getConsumableItem(@RequestParam int consumableItemIdx) {
-        logger.info("get ConsumableItem");
+        logger.info("get consumable item");
 
         try {
             List<ConsumableItem> consumableItemList = new ArrayList<>();
@@ -89,6 +90,30 @@ public class GameController {
         }
     }
 
+    @Operation(summary = "장비 아이템 조회", description = "equipment item get")
+    @GetMapping("/equip")
+    public ResponseEntity<?> getEquipmentItem(@RequestParam int equipmentItemIdx) {
+        logger.info("get equipment item");
+
+        try {
+            List<EquipmentItem> equipmentItemList = new ArrayList<>();
+            if (equipmentItemIdx == 0) {
+                equipmentItemList = gameService.getEquipmentItem();
+            }
+            else {
+                equipmentItemList = gameService.getTargetEquipmentItem(equipmentItemIdx);
+            }
+
+            Map<String, Object> result = new HashMap<>();
+            result.put(RESULT, equipmentItemList);
+
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.info(e.toString());
+
+            return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
+        }
+    }
     @Operation(summary = "경기 기록 저장", description = "game result save")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "accessToken", value = "firebase 로그인 성공 후 " +
