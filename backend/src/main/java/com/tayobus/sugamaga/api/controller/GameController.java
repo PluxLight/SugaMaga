@@ -4,10 +4,7 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.tayobus.sugamaga.api.common.utils.TokenUtils;
 import com.tayobus.sugamaga.api.request.HistoryRequest;
 import com.tayobus.sugamaga.api.service.GameService;
-import com.tayobus.sugamaga.db.entity.ConsumableItem;
-import com.tayobus.sugamaga.db.entity.DropTable;
-import com.tayobus.sugamaga.db.entity.EquipmentItem;
-import com.tayobus.sugamaga.db.entity.History;
+import com.tayobus.sugamaga.db.entity.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -35,10 +32,12 @@ public class GameController {
     private final static String FAIL = "Fail";
     private final static String RESULT = "result";
 
-
+    private final GameService gameService;
 
     @Autowired
-    private GameService gameService;
+    public GameController(GameService gameService) {
+        this.gameService = gameService;
+    }
 
     @Operation(summary = "드랍 테이블 조회", description = "drop table get")
     @GetMapping("/droptable")
@@ -114,6 +113,32 @@ public class GameController {
             return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @Operation(summary = "몬스터 조회", description = "monster get")
+    @GetMapping("/monster")
+    public ResponseEntity<?> getMonster(@RequestParam int monsterIdx) {
+        logger.info("get monster");
+
+        try {
+            List<Monster> monsterList = new ArrayList<>();
+            if (monsterIdx == 0) {
+                monsterList = gameService.getMonster();
+            }
+            else {
+                monsterList = gameService.getTargetMonster(monsterIdx);
+            }
+
+            Map<String, Object> result = new HashMap<>();
+            result.put(RESULT, monsterList);
+
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.info(e.toString());
+
+            return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @Operation(summary = "경기 기록 저장", description = "game result save")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "accessToken", value = "firebase 로그인 성공 후 " +
