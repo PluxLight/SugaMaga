@@ -5,6 +5,7 @@ import com.tayobus.sugamaga.api.common.utils.TokenUtils;
 import com.tayobus.sugamaga.api.request.HistoryRequest;
 import com.tayobus.sugamaga.api.service.GameService;
 import com.tayobus.sugamaga.db.entity.DropTable;
+import com.tayobus.sugamaga.db.entity.History;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -30,6 +31,7 @@ public class GameController {
 
     private final static String SUCCESS = "Success";
     private final static String FAIL = "Fail";
+    private final static String RESULT = "result";
 
 
 
@@ -51,7 +53,7 @@ public class GameController {
             }
 
             Map<String, Object> result = new HashMap<>();
-            result.put("result", dropTableList);
+            result.put(RESULT, dropTableList);
 
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception e) {
@@ -71,7 +73,7 @@ public class GameController {
     public ResponseEntity<?> saveHistory(@RequestBody HistoryRequest historyRequest,
                                          HttpServletRequest httpServletRequest)
             throws FirebaseAuthException {
-        logger.info("post hisotry");
+        logger.info("post history");
 
         try {
             String uid = TokenUtils.getInstance()
@@ -89,7 +91,32 @@ public class GameController {
         }
     }
 
+    @Operation(summary = "경기 기록 조회", description = "game result get")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "accessToken", value = "firebase 로그인 성공 후 " +
+                    "발급 받은 accessToken",
+                    required = true, dataType = "String", paramType = "header")
+    })
+    @GetMapping("/history")
+    public ResponseEntity<?> getHistory(HttpServletRequest httpServletRequest)
+            throws FirebaseAuthException {
+        logger.info("get history");
 
+        try {
+            String uid = TokenUtils.getInstance()
+                    .getUid(httpServletRequest.getHeader("accessToken"));
+
+            List<History> historyList = gameService.getHistory(uid);
+            Map<String, Object> result = new HashMap<>();
+            result.put(RESULT, historyList);
+
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.info(e.toString());
+
+            return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
+        }
+    }
 
 
 }

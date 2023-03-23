@@ -40,4 +40,10 @@ public class GameService {
                         .mapIdx(request.getMapIdx())
                 .build());
     }
+
+    public List<History> getHistory(String uid) {
+        logger.info("get Target drop table list");
+
+        return historyRepository.findAllByUid(uid);
+    }
 }
