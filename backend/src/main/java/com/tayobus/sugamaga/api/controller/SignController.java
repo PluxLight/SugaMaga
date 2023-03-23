@@ -4,6 +4,7 @@ import com.google.firebase.auth.AuthErrorCode;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
+import com.tayobus.sugamaga.api.common.utils.TokenUtils;
 import com.tayobus.sugamaga.api.request.SignRequest;
 import com.tayobus.sugamaga.api.service.SignService;
 import io.swagger.annotations.Api;
@@ -18,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/sign")
@@ -83,6 +85,30 @@ public class SignController {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
         }
+    }
+
+    @Operation(summary = "인증 유효 확인 테스트용", description = "access, refresh token 입력")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "accessToken", value = "firebase 로그인 성공 후 " +
+                    "발급 받은 accessToken",
+                    required = true, dataType = "String", paramType = "header"),
+            @ApiImplicitParam(name = "refreshToken", value = "firebase 로그인 성공 후 " +
+                    "발급 받은 refreshToken",
+                    required = true, dataType = "String", paramType = "header")
+    })
+    @GetMapping("/verify-test")
+    public ResponseEntity<?> verifyTest(HttpServletRequest httpServletRequest) throws FirebaseAuthException {
+        logger.info("verify test");
+
+        String idToken = httpServletRequest.getHeader("accessToken");
+        logger.info("idToken : " + idToken);
+
+        String reToken = httpServletRequest.getHeader("refreshToken");
+        logger.info("reToken : " + reToken);
+
+        Map<String, String> userMap =  TokenUtils.getInstance().getNewUid(idToken, reToken);
+
+        return new ResponseEntity<>(userMap, HttpStatus.OK);
     }
 
 }
