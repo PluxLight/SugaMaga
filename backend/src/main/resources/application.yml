@@ -1,0 +1,36 @@
+server:
+  port: 18081
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: d211
+    password: s08p!@d211
+    url: jdbc:mysql://aeoragy.com:3306/d211?characterEncoding=UTF-8&serverTimezone=UTC&autoReconnect=true
+    dbcp:
+      testOnBorrow: 'true'
+      validationQuery: SELECT 1
+
+  jpa:
+    generate-ddl: 'true'
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: 'true'
+    properties:
+      hibernate:
+        format_sql: 'true'
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+# jwt
+jwt:
+  header: Authorization
+  refresh-token: RefreshToken
+  secret: tayobus!@#
+  access-token: AccessToken
+  # 1 hour
+  token-validity-in-seconds: 3600000
+  # 1 day
+  refresh-token-validity-in-seconds: 86400000
