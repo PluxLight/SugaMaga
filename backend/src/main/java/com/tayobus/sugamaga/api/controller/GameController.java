@@ -70,18 +70,18 @@ public class GameController {
         logger.info("get consumable item");
 
         try {
-            List<ConsumableItem> consumableItemList = new ArrayList<>();
             if (consumableItemIdx == 0) {
-                consumableItemList = gameService.getConsumableItem();
+                List<ConsumableItem> consumableItemList = gameService.getConsumableItem();
+                Map<String, Object> result = new HashMap<>();
+                result.put(RESULT, consumableItemList);
+
+                return new ResponseEntity<>(result, HttpStatus.OK);
             }
             else {
-                consumableItemList = gameService.getTargetConsumableItem(consumableItemIdx);
+                ConsumableItem consumableItem = gameService.getTargetConsumableItem(consumableItemIdx);
+
+                return new ResponseEntity<>(consumableItem, HttpStatus.OK);
             }
-
-            Map<String, Object> result = new HashMap<>();
-            result.put(RESULT, consumableItemList);
-
-            return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception e) {
             logger.info(e.toString());
 
@@ -95,18 +95,18 @@ public class GameController {
         logger.info("get equipment item");
 
         try {
-            List<EquipmentItem> equipmentItemList = new ArrayList<>();
             if (equipmentItemIdx == 0) {
-                equipmentItemList = gameService.getEquipmentItem();
+                List<EquipmentItem> equipmentItemList = gameService.getEquipmentItem();
+                Map<String, Object> result = new HashMap<>();
+                result.put(RESULT, equipmentItemList);
+
+                return new ResponseEntity<>(result, HttpStatus.OK);
             }
             else {
-                equipmentItemList = gameService.getTargetEquipmentItem(equipmentItemIdx);
+                EquipmentItem equipmentItem = gameService.getTargetEquipmentItem(equipmentItemIdx);
+
+                return new ResponseEntity<>(equipmentItem, HttpStatus.OK);
             }
-
-            Map<String, Object> result = new HashMap<>();
-            result.put(RESULT, equipmentItemList);
-
-            return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception e) {
             logger.info(e.toString());
 
@@ -120,18 +120,18 @@ public class GameController {
         logger.info("get monster");
 
         try {
-            List<Monster> monsterList = new ArrayList<>();
             if (monsterIdx == 0) {
-                monsterList = gameService.getMonster();
+                List<Monster> monsterList = gameService.getMonster();
+                Map<String, Object> result = new HashMap<>();
+                result.put(RESULT, monsterList);
+
+                return new ResponseEntity<>(result, HttpStatus.OK);
             }
             else {
-                monsterList = gameService.getTargetMonster(monsterIdx);
+                Monster monster = gameService.getTargetMonster(monsterIdx);
+
+                return new ResponseEntity<>(monster, HttpStatus.OK);
             }
-
-            Map<String, Object> result = new HashMap<>();
-            result.put(RESULT, monsterList);
-
-            return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception e) {
             logger.info(e.toString());
 
