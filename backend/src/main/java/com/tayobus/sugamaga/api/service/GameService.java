@@ -1,14 +1,8 @@
 package com.tayobus.sugamaga.api.service;
 
 import com.tayobus.sugamaga.api.request.HistoryRequest;
-import com.tayobus.sugamaga.db.entity.ConsumableItem;
-import com.tayobus.sugamaga.db.entity.DropTable;
-import com.tayobus.sugamaga.db.entity.EquipmentItem;
-import com.tayobus.sugamaga.db.entity.History;
-import com.tayobus.sugamaga.db.repository.ConsumableItemRepository;
-import com.tayobus.sugamaga.db.repository.DropTableRepository;
-import com.tayobus.sugamaga.db.repository.EquipmentItemRepository;
-import com.tayobus.sugamaga.db.repository.HistoryRepository;
+import com.tayobus.sugamaga.db.entity.*;
+import com.tayobus.sugamaga.db.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +18,7 @@ public class GameService {
     private final HistoryRepository historyRepository;
     private final ConsumableItemRepository consumableItemRepository;
     private final EquipmentItemRepository equipmentItemRepository;
+    private final MonsterRepository monsterRepository;
 
     public List<DropTable> getDropTable() {
         logger.info("get drop table list");
@@ -59,6 +54,18 @@ public class GameService {
         logger.info("get target equipment item list");
 
         return equipmentItemRepository.findByEquipItemIdx(equipmentItemIdx);
+    }
+
+    public List<Monster> getMonster() {
+        logger.info("get monster");
+
+        return monsterRepository.findAll();
+    }
+
+    public List<Monster> getTargetMonster(int monsterIdx) {
+        logger.info("get target monster");
+
+        return monsterRepository.findByMonsterIdx(monsterIdx);
     }
 
     public void saveHistory(HistoryRequest request) {
