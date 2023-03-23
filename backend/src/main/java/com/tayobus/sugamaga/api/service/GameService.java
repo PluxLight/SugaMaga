@@ -38,8 +38,8 @@ public class GameService {
         return consumableItemRepository.findAll();
     }
 
-    public List<ConsumableItem> getTargetConsumableItem(int consumableItemIdx) {
-        logger.info("get target consumable Item list");
+    public ConsumableItem getTargetConsumableItem(int consumableItemIdx) {
+        logger.info("get target consumable Item");
 
         return consumableItemRepository.findByConsumableItemIdx(consumableItemIdx);
     }
@@ -50,19 +50,19 @@ public class GameService {
         return equipmentItemRepository.findAll();
     }
 
-    public List<EquipmentItem> getTargetEquipmentItem(int equipmentItemIdx) {
-        logger.info("get target equipment item list");
+    public EquipmentItem getTargetEquipmentItem(int equipmentItemIdx) {
+        logger.info("get target equipment item");
 
         return equipmentItemRepository.findByEquipItemIdx(equipmentItemIdx);
     }
 
     public List<Monster> getMonster() {
-        logger.info("get monster");
+        logger.info("get monster list");
 
         return monsterRepository.findAll();
     }
 
-    public List<Monster> getTargetMonster(int monsterIdx) {
+    public Monster getTargetMonster(int monsterIdx) {
         logger.info("get target monster");
 
         return monsterRepository.findByMonsterIdx(monsterIdx);
