@@ -4,10 +4,9 @@ import styled from 'styled-components';
 import React, { useState } from "react";
 
 import {
-  firebaseAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  sendEmailVerification
+  firebaseAuth, createUserWithEmailAndPassword,
+  signInWithEmailAndPassword, sendEmailVerification,
+  EmailAuthProvider
 } from "./firebase-config";
 import axios from "axios";
 
@@ -48,8 +47,8 @@ const [setIsAppropriate] = useState();
       console.log('회원가입 성공!');
       setEmail("");
       setPassword("");
-  
-    } catch(err){
+
+    } catch (err) {
       //console.log(err.code);
       switch (err.code) {
         case 'auth/weak-password':
@@ -77,7 +76,7 @@ const [setIsAppropriate] = useState();
       setUser(curUserInfo.user);
       setErrorMsg(" ");
 
-    } catch(err){
+    } catch (err) {
       setIsAppropriate(false);
       // console.log(err.code);
       switch (err.code) {
@@ -92,6 +91,23 @@ const [setIsAppropriate] = useState();
           break;
       }
     }
+  }
+
+  const verifyAuth = () => {
+    // For an email/password user. Prompt the user for the password again.
+    axios({
+      method: 'POST',
+      url: `https://securetoken.googleapis.com/v1/token?key=` + process.env.REACT_APP_FB_API_KEY,
+      headers: {
+        "Content-Type": `application/x-www-form-urlencoded`,
+      },
+      data: {
+        'grant_type': 'refresh_token',
+        'refresh_token': 'APJWN8cTeMA1F480VhgW5WQ3LwIzny_n1cbQ1VhSChS8KLRc9Gpi0yu-l1j3K41JULJuci8wwRrMOGlRmmVrWd3UIFT-8aeisY8HWaXcfmusXjhTj8uovrb7i3AKTN4eAwp0jcPZpjRoqzGRKM0E8U8hRLYwdxJOB-EzLX2jPgVhbAst511jo422QICtHOyvc9LTEqgQUUSnXCmm5lKWLo4wj0otJVj8AA'
+      }
+    }).then((response) => {
+      console.log(response);
+    })
   }
 
   const fileDownload = (event) => {
@@ -116,16 +132,16 @@ const [setIsAppropriate] = useState();
       const link = document.createElement("a");
       link.href = fileObjectUrl;
       link.style.display = "none";
-      
+
       // 다운로드 파일 이름을 추출하는 함수
       const extractDownloadFilename = (response) => {
-          const disposition = response.headers["content-disposition"];
-          const fileName = decodeURI(
+        const disposition = response.headers["content-disposition"];
+        const fileName = decodeURI(
           disposition
-              .match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/)[1]
-              .replace(/['"]/g, "")
-          );
-          return fileName;
+            .match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/)[1]
+            .replace(/['"]/g, "")
+        );
+        return fileName;
       };
 
       // 다운로드 파일 이름을 지정 할 수 있습니다.
@@ -148,7 +164,7 @@ const [setIsAppropriate] = useState();
 
   return (
     <div className="App">
-      <h1>Tayoverse</h1>
+      <h1>SugaMaga</h1>
       <div>
         <form>
           <label>
@@ -156,26 +172,27 @@ const [setIsAppropriate] = useState();
             <input
               type="email"
               name="email"
-              onChange={emailChange}/>
+              onChange={emailChange} />
           </label>
-          <br/>
+          <br />
           <label>
             password:
             <input
               type="password"
               name="password"
-              onChange={passwordChange}/>
+              onChange={passwordChange} />
           </label>
-          <br/>
+          <br />
           <input type="button" value="SignUp" onClick={signUpEvent} />
           &nbsp;
           <input type="button" value="Login" onClick={logInEvent} />
         </form>
-        <h3>{ errorMsg }</h3>
+        <h3>{errorMsg}</h3>
       </div>
-      <br/>
+      <button onClick={verifyAuth}>token re</button>
+      <br />
       <div>
-        <FileDown onClick={ fileDownload }>Tayoverse DownLoad</FileDown>
+        <FileDown onClick={fileDownload}>Tayoverse DownLoad</FileDown>
       </div>
       <a href="http://localhost:8080/api/file/download">파일 다운로드</a>
     </div>
