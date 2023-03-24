@@ -7,10 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 import javax.annotation.PostConstruct;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 
 @Configuration
 public class FireBaseConfig {
@@ -18,16 +18,23 @@ public class FireBaseConfig {
 
     @PostConstruct
     public void init() throws IOException {
-        ClassPathResource resource = new ClassPathResource("serviceAccountKey.json");
-        String url = resource.getURL().toString();
-        url = url.replace("file:/", "");
-        url = url.replace("jar:", "");
-        url = url.replace("!", "");
-        logger.info("url : " + url);
+        Resource resource = new ClassPathResource("serviceAccountKey.json");
+        InputStream is = resource.getInputStream();
+
+        File jsonFile = File.createTempFile("serviceAccountKey", ".json");
+
+        try (FileOutputStream fos = new FileOutputStream(jsonFile)) {
+            int read;
+            byte[] bytes = new byte[1024];
+
+            while ((read = is.read(bytes)) != -1) {
+                fos.write(bytes, 0, read);
+            }
+        }
 
         try{
             FileInputStream serviceAccount =
-                    new FileInputStream(url);
+                    new FileInputStream(jsonFile);
 
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
