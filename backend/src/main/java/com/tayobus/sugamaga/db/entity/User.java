@@ -1,7 +1,10 @@
 package com.tayobus.sugamaga.db.entity;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
@@ -30,6 +33,7 @@ public class User {
     @ApiModelProperty(value="유저 닉네임", example = "유저001")
     private String nickname;
 
+    @Column(columnDefinition = "int default 1")
     @ApiModelProperty(value="유저 활성화 상태", example = "1")
     private int active;
 }

@@ -46,13 +46,11 @@ public class SignController {
         signRequest.setUid(decodedToken.getUid());
 
         if ( signService.signUp(signRequest).equals("Success") ) {
-            signService.signUp(signRequest);
-
             logger.info("Sign Up Success!");
+
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
         else {
-
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
