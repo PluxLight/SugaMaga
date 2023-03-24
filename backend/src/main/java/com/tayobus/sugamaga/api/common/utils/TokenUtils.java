@@ -47,6 +47,8 @@ public class TokenUtils {
     public String getUid(String idToken) throws FirebaseAuthException {
         FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
 
+        logger.info("uid : " + decodedToken.getUid());
+
         return decodedToken.getUid();
     }
 
