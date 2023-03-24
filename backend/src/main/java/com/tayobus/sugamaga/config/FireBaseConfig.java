@@ -21,6 +21,7 @@ public class FireBaseConfig {
         ClassPathResource resource = new ClassPathResource("serviceAccountKey.json");
         String url = resource.getURL().toString();
         url = url.replace("file:/", "");
+        url = url.replace("jar:", "");
         logger.info("url : " + url);
 
         try{
