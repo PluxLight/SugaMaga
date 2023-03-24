@@ -9,16 +9,27 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.nio.file.Paths;
 
 @Configuration
 public class FireBaseConfig {
     private final Logger logger = LoggerFactory.getLogger(FireBaseConfig.class);
 
+    private final String fileDirectory = Paths.get("").toAbsolutePath() + "";
+
     @PostConstruct
     public void init() throws FileNotFoundException {
         ClassPathResource cpr = new ClassPathResource("serviceAccountKey.json");
+
+        File dir = new File(fileDirectory);
+        File files[] = dir.listFiles();
+
+        for (int i = 0; i < files.length; i++) {
+            logger.info("file: " + files[i]);
+        }
 
         try{
             FileInputStream serviceAccount =
