@@ -27,8 +27,11 @@ import java.util.Map;
 public class SignController {
     private final Logger logger = LoggerFactory.getLogger(SignController.class);
 
+    private final SignService signService;
     @Autowired
-    private SignService signService;
+    public SignController(SignService signService) {
+        this.signService = signService;
+    }
 
     @Operation(summary = "회원가입", description = "유저 Email, UID, nickname 입력")
     @ApiImplicitParams({
