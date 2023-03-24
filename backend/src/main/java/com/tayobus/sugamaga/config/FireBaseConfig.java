@@ -6,24 +6,23 @@ import com.google.firebase.FirebaseOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.util.ResourceUtils;
+import org.springframework.core.io.ClassPathResource;
 
 import javax.annotation.PostConstruct;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 @Configuration
 public class FireBaseConfig {
     private final Logger logger = LoggerFactory.getLogger(FireBaseConfig.class);
-    
+
     @PostConstruct
     public void init() throws FileNotFoundException {
-        File firebaseKeyFile = ResourceUtils.getFile("classpath:serviceAccountKey.json");
+        ClassPathResource cpr = new ClassPathResource("serviceAccountKey.json");
 
         try{
             FileInputStream serviceAccount =
-                    new FileInputStream(firebaseKeyFile);
+                    new FileInputStream(cpr.getFile());
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .build();
