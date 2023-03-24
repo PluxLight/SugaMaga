@@ -1,5 +1,6 @@
 package com.tayobus.sugamaga.api.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.tayobus.sugamaga.api.common.utils.TokenUtils;
 import com.tayobus.sugamaga.api.request.UserCustomRequest;
@@ -17,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/user")
@@ -33,18 +35,36 @@ public class UserController {
 
     @Operation(summary = "유저 커스텀 조회", description = "user custom info get")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "accessToken", value = "firebase 로그인 성공 후 발급 받은 accessToken", required = true, dataType = "String", paramType = "header")
+            @ApiImplicitParam(name = "accessToken", value = "firebase 로그인 성공 후 " +
+                    "발급 받은 accessToken",
+                    required = true, dataType = "String", paramType = "header"),
+            @ApiImplicitParam(name = "refreshToken", value = "firebase 로그인 성공 후 " +
+                    "발급 받은 refreshToken",
+                    required = true, dataType = "String", paramType = "header")
     })
     @GetMapping("/custom")
     public ResponseEntity<?> getCustom(HttpServletRequest httpServletRequest) throws FirebaseAuthException {
         logger.info("get custom");
 
-        String uid = TokenUtils.getInstance().getUid(httpServletRequest.getHeader("accessToken"));
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        Map<String, Object> result = null;
+
+        Map<String, Object> data = TokenUtils.getInstance()
+                        .getNewUid( httpServletRequest.getHeader("accessToken"),
+                        httpServletRequest.getHeader("refreshToken") );
+
+        String uid = (String) data.get("uid");
 
         try {
             UserCustom userCustom = userService.getUserCustom(uid);
+            result = objectMapper.convertValue(userCustom, Map.class);
 
-            return new ResponseEntity<>(userCustom, HttpStatus.OK);
+            try {
+                result.put("accessToken", data.get("accessToken"));
+            } finally {}
+
+            return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception e) {
             logger.info(e.toString());
 
