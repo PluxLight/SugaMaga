@@ -22,6 +22,7 @@ public class FireBaseConfig {
 
     @PostConstruct
     public void init() throws FileNotFoundException {
+        logger.info("fileDirectory : " + fileDirectory);
         ClassPathResource cpr = new ClassPathResource("serviceAccountKey.json");
 
         File dir = new File(fileDirectory);
@@ -30,6 +31,9 @@ public class FireBaseConfig {
         for (int i = 0; i < files.length; i++) {
             logger.info("file: " + files[i]);
         }
+
+        String path = System.getProperty("user.dir");
+        logger.info("path : " + path);
 
         try{
             FileInputStream serviceAccount =
