@@ -10,19 +10,22 @@ import org.springframework.core.io.ClassPathResource;
 
 import javax.annotation.PostConstruct;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 
 @Configuration
 public class FireBaseConfig {
     private final Logger logger = LoggerFactory.getLogger(FireBaseConfig.class);
 
     @PostConstruct
-    public void init() throws FileNotFoundException {
+    public void init() throws IOException {
         ClassPathResource resource = new ClassPathResource("serviceAccountKey.json");
+        String url = resource.getURL().toString();
+        url = url.replace("file:/", "");
+        logger.info("url : " + url);
 
         try{
             FileInputStream serviceAccount =
-                    new FileInputStream(resource.getFile());
+                    new FileInputStream(url);
 
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
