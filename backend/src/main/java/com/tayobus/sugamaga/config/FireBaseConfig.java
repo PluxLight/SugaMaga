@@ -22,6 +22,7 @@ public class FireBaseConfig {
         String url = resource.getURL().toString();
         url = url.replace("file:/", "");
         url = url.replace("jar:", "");
+        url = url.replace("!", "");
         logger.info("url : " + url);
 
         try{
