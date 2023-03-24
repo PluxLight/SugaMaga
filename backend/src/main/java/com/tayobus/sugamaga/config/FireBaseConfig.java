@@ -19,10 +19,12 @@ public class FireBaseConfig {
     @PostConstruct
     public void init(){
         logger.info("fileDirectory : " + fileDirectory);
+        logger.info("fileDirectory + : " + fileDirectory + "/src/main/resources/serviceAccountKey.json");
+        logger.info("file paths : " + this.getClass().getResource("").getPath());
 
         try{
             FileInputStream serviceAccount =
-                    new FileInputStream(fileDirectory + "/src/main/resources/serviceAccountKey.json");
+                    new FileInputStream(fileDirectory + "src/main/resources/serviceAccountKey.json");
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .build();
