@@ -4,8 +4,8 @@ package com.tayobus.sugamaga.api.service;
 import com.tayobus.sugamaga.api.request.SignRequest;
 import com.tayobus.sugamaga.db.entity.User;
 import com.tayobus.sugamaga.db.entity.UserCustom;
-import com.tayobus.sugamaga.db.repository.SignRepository;
 import com.tayobus.sugamaga.db.repository.UserCustomRepository;
+import com.tayobus.sugamaga.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,16 +18,17 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class SignService {
     private final Logger logger = LoggerFactory.getLogger(SignService.class);
-    private final SignRepository signRepository;
+    private final UserRepository userRepository;
     private final UserCustomRepository userCustomRepository;
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public String signUp(SignRequest request) {
         try {
-            signRepository.save(User.builder()
+            userRepository.save(User.builder()
                     .email(request.getEmail())
                     .uid(request.getUid())
                     .nickname(request.getNickname())
+                    .active(1)
                     .build());
 
             Random random = new Random();
