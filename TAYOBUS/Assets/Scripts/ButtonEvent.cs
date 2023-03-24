@@ -27,6 +27,15 @@ public class ButtonEvent : MonoBehaviour
         public string strCol;
     }
 
+    [System.Serializable]
+    public class Consum
+    {
+        public int consumableItemIdx;
+        public string consumableName;
+        public string consumableCategory;
+        public int consumableValue;
+    }
+
     public string testA = "before";
 
     private void Start()
@@ -53,20 +62,10 @@ public class ButtonEvent : MonoBehaviour
 
     public void OnClickTest3()
     {
-        var str = new Dictionary<string, object>();
-        str.Add("nickname", "unity");
-        str.Add("level", 1);
-
-        var data = Json.Serialize(str);
-
-        ApiManager.Instance.GET("test/3", data, delegate (UnityWebRequest request)
+        ApiManager.Instance.GET("user/custom", null, delegate (UnityWebRequest request)
         {
-            /*Debug.Log(request.downloadHandler.text);*/
             var dict = Json.Deserialize(request.downloadHandler.text) as Dictionary<string, object>;
-            Debug.Log(dict["result"]);
-            Debug.Log(dict["nickname"]);
-            Debug.Log(dict["level"]);
-
+            Debug.Log(dict["uid"]);
         });
     }
 
@@ -75,23 +74,23 @@ public class ButtonEvent : MonoBehaviour
 
         var str = new Dictionary<string, object>();
         var res = new Dictionary<string, object>();
-        str.Add("strCol", "unity");
-        str.Add("intCol", 1);
+        str.Add("consumableItemIdx", 0);
 
         var data = Json.Serialize(str);
 
-        ApiManager.Instance.GET("test/4", data, delegate (UnityWebRequest request)
+        ApiManager.Instance.GET("game/consume", data, delegate (UnityWebRequest request)
         {
             Debug.Log("res download text : " + request.downloadHandler.text);
 
-            var TestTableData = JsonHelper.FromJson<TestTable>(request.downloadHandler.text);
+            var TestTableData = JsonHelper.FromJson<Consum>(request.downloadHandler.text);
             Debug.Log($"animalData = ${TestTableData.Length}");
 
             for (int i = 0; i < TestTableData.Length; i++)
             {
-                Debug.Log($"TestTableData[i].pk = {TestTableData[i].pk}, " +
-                    $"TestTableData[i].intCol = {TestTableData[i].intCol}, " +
-                    $"TestTableData[i].strCol = {TestTableData[i].strCol}");
+                Debug.Log($"TestTableData[i].consumableItemIdx = {TestTableData[i].consumableItemIdx}, " +
+                    $"TestTableData[i].consumableCategory = {TestTableData[i].consumableCategory}, " +
+                    $"TestTableData[i].consumableValue = {TestTableData[i].consumableValue}, " +
+                    $"TestTableData[i].consumableName = {TestTableData[i].consumableName}");
             }
         });
     }
@@ -117,12 +116,12 @@ public class ButtonEvent : MonoBehaviour
 
         var str = new Dictionary<string, object>();
         var res = new Dictionary<string, object>();
-        str.Add("hair", 4);
-        str.Add("cap", 4);
+        str.Add("hair", 1);
+        str.Add("cap", 1);
 
         var data = Json.Serialize(str);
 
-        ApiManager.Instance.PUT("test/6", data, delegate (UnityWebRequest request)
+        ApiManager.Instance.PUT("user/custom", data, delegate (UnityWebRequest request)
         {
             Debug.Log("res download text : " + request.downloadHandler.text);
         });
