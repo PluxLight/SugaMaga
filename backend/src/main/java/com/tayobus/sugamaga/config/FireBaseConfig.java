@@ -9,15 +9,20 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
 import java.io.FileInputStream;
+import java.nio.file.Paths;
 
 @Configuration
 public class FireBaseConfig {
     private final Logger logger = LoggerFactory.getLogger(FireBaseConfig.class);
+
+    private final String fileDirectory = Paths.get("").toAbsolutePath() + "";
     @PostConstruct
     public void init(){
+        logger.info("fileDirectory : " + fileDirectory);
+
         try{
             FileInputStream serviceAccount =
-                    new FileInputStream("src/main/resources/serviceAccountKey.json");
+                    new FileInputStream(fileDirectory + "/src/main/resources/serviceAccountKey.json");
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .build();
