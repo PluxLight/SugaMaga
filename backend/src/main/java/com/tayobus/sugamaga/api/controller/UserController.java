@@ -24,8 +24,12 @@ import javax.servlet.http.HttpServletRequest;
 public class UserController {
     private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
+    private final UserService userService;
+
     @Autowired
-    private UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @Operation(summary = "유저 커스텀 조회", description = "user custom info get")
     @ApiImplicitParams({
