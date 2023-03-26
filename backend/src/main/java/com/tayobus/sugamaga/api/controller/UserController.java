@@ -46,25 +46,13 @@ public class UserController {
     public ResponseEntity<?> getCustom(HttpServletRequest httpServletRequest) throws FirebaseAuthException {
         logger.info("get custom");
 
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        Map<String, Object> result = null;
-
-        Map<String, Object> data = TokenUtils.getInstance()
-                        .getNewUid( httpServletRequest.getHeader("accessToken"),
-                        httpServletRequest.getHeader("refreshToken") );
-
-        String uid = (String) data.get("uid");
+        String uid = TokenUtils.getInstance()
+                .getUid( httpServletRequest.getHeader("accessToken"));
 
         try {
             UserCustom userCustom = userService.getUserCustom(uid);
-            result = objectMapper.convertValue(userCustom, Map.class);
 
-            try {
-                result.put("accessToken", data.get("accessToken"));
-            } finally {}
-
-            return new ResponseEntity<>(result, HttpStatus.OK);
+            return new ResponseEntity<>(userCustom, HttpStatus.OK);
         } catch (Exception e) {
             logger.info(e.toString());
 
