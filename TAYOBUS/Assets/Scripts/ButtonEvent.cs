@@ -45,7 +45,7 @@ public class ButtonEvent : MonoBehaviour
 
     public void OnClickTest1()
     {
-        ApiManager.Instance.GET("test/1", null, delegate (UnityWebRequest request)
+        ApiManager.Instance.GET("user/custom", null, delegate (UnityWebRequest request)
         {
             Debug.Log(request.downloadHandler.text);
         });
@@ -99,13 +99,14 @@ public class ButtonEvent : MonoBehaviour
     {
 
         var str = new Dictionary<string, object>();
-        var res = new Dictionary<string, object>();
-        str.Add("strCol", "unity");
-        str.Add("intCol", 1);
+        str.Add("gameRoomIdx", 1);
+        str.Add("resultRank", 3);
+        str.Add("resultKill", 27);
+        str.Add("mapIdx", 1);
 
         var data = Json.Serialize(str);
 
-        ApiManager.Instance.POST("test/5", data, delegate (UnityWebRequest request)
+        ApiManager.Instance.POST("game/history", data, delegate (UnityWebRequest request)
         {
             Debug.Log("res download text : " + request.downloadHandler.text);
         });
@@ -115,7 +116,6 @@ public class ButtonEvent : MonoBehaviour
     {
 
         var str = new Dictionary<string, object>();
-        var res = new Dictionary<string, object>();
         str.Add("hair", 1);
         str.Add("cap", 1);
 
