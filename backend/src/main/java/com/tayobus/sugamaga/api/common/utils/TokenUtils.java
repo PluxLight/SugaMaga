@@ -53,7 +53,7 @@ public class TokenUtils {
     }
 
 
-    public Map getNewUid(String idToken, String reToken) throws FirebaseAuthException {
+    public Map getToken(String idToken, String reToken) throws FirebaseAuthException {
 
         Map<String, String> result = new HashMap<>();
 

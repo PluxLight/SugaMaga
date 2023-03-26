@@ -1,6 +1,5 @@
 package com.tayobus.sugamaga.api.controller;
 
-import com.google.firebase.auth.AuthErrorCode;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
@@ -55,40 +54,7 @@ public class SignController {
         }
     }
 
-    @Operation(summary = "인증 유효 확인", description = "access token 입력")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "accessToken", value = "firebase 로그인 성공 후 발급 받은 accessToken", required = true, dataType = "String", paramType = "header")
-    })
-    @GetMapping("/verify")
-    public ResponseEntity<?> verify(HttpServletRequest httpServletRequest) throws FirebaseAuthException {
-        logger.info("verify");
-
-        String idToken = httpServletRequest.getHeader("accessToken");
-        logger.info(idToken);
-
-        try {
-            // Verify the ID token while checking if the token is revoked by passing checkRevoked
-            // as true.
-            FirebaseToken decodedToken = FirebaseAuth.getInstance()
-                    .verifyIdToken(idToken);
-            // Token is valid and not revoked.
-            String uid = decodedToken.getUid();
-
-            return new ResponseEntity<>(uid, HttpStatus.OK);
-        } catch (FirebaseAuthException e) {
-            if (e.getAuthErrorCode() == AuthErrorCode.EXPIRED_ID_TOKEN) {
-                // Token has been revoked. Inform the user to re-authenticate or signOut() the user.
-                logger.info(e.getAuthErrorCode().toString());
-                return new ResponseEntity<>(AuthErrorCode.EXPIRED_ID_TOKEN, HttpStatus.FORBIDDEN);
-            } else {
-                // Token is invalid.
-                logger.info("any catch");
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
-        }
-    }
-
-    @Operation(summary = "인증 유효 확인 테스트용", description = "access, refresh token 입력")
+    @Operation(summary = "인증 유효 확인", description = "access, refresh token 입력")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "accessToken", value = "firebase 로그인 성공 후 " +
                     "발급 받은 accessToken",
@@ -97,9 +63,9 @@ public class SignController {
                     "발급 받은 refreshToken",
                     required = true, dataType = "String", paramType = "header")
     })
-    @GetMapping("/verify-test")
+    @GetMapping("/verify")
     public ResponseEntity<?> verifyTest(HttpServletRequest httpServletRequest) throws FirebaseAuthException {
-        logger.info("verify test");
+        logger.info("verify token");
 
         String idToken = httpServletRequest.getHeader("accessToken");
         logger.info("idToken : " + idToken);
@@ -107,9 +73,15 @@ public class SignController {
         String reToken = httpServletRequest.getHeader("refreshToken");
         logger.info("reToken : " + reToken);
 
-        Map<String, String> userMap =  TokenUtils.getInstance().getNewUid(idToken, reToken);
+        try {
+            Map<String, String> userMap =  TokenUtils.getInstance().getToken(idToken, reToken);
 
-        return new ResponseEntity<>(userMap, HttpStatus.OK);
+            return new ResponseEntity<>(userMap, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.info("verifyTest error : " + e);
+
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
 }
