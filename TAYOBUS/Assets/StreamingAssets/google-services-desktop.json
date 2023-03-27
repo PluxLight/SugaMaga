@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "14973767089",
+    "project_id": "tayoverse-49af1",
+    "storage_bucket": "tayoverse-49af1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:14973767089:android:a2c70ccbbfe2d468d7c190",
+        "android_client_info": {
+          "package_name": "com.tayoverse.demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "14973767089-lgetb9cpk2bs0dm3vskkci49uqmj0mse.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6QA5sP43bb2DBWWi0hHNs_8YJcR-Im8U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "14973767089-lgetb9cpk2bs0dm3vskkci49uqmj0mse.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
