@@ -6,6 +6,8 @@ public class AuthController
 {
     private static AuthController instance = null;
 
+    private static bool SceneChange = false;
+
     public static AuthController Instance
     {
         get
@@ -94,9 +96,10 @@ public class AuthController
 
             FirebaseUser newUser = task.Result;
             Debug.Log("signin success");
-            Debug.Log(newUser.ProviderId);
-            Debug.Log( String.Join(", ", newUser.ProviderData) );
-            Debug.Log( auth.CurrentUser.ToString() );
+            ApiManager.Instance.InputUID(newUser.UserId);
+            SceneChange = true;
+            
+
         });
     }
 

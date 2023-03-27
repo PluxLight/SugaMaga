@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class SignSystem : MonoBehaviour
 {
@@ -38,5 +39,9 @@ public class SignSystem : MonoBehaviour
     {
         AuthController.Instance.Login(inputEmail.text, inputPpassword.text);
 
+    }
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.Alpha1)) SceneManager.LoadScene("APIScene");
     }
 }

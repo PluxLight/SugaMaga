@@ -40,7 +40,7 @@ public class ApiManager : MonoBehaviour
         }
     }
 
-    public static void InputUID(string uid)
+    public void InputUID(string uid)
     {
         UID = uid;
     }
