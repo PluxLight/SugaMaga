@@ -1,9 +1,6 @@
 package com.tayobus.sugamaga.api.controller;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
-import com.google.firebase.auth.FirebaseToken;
-import com.tayobus.sugamaga.api.common.utils.TokenUtils;
 import com.tayobus.sugamaga.api.request.SignRequest;
 import com.tayobus.sugamaga.api.service.SignService;
 import io.swagger.annotations.Api;
@@ -15,10 +12,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/sign")
@@ -34,15 +33,17 @@ public class SignController {
 
     @Operation(summary = "회원가입", description = "유저 Email, UID, nickname 입력")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "accessToken", value = "firebase 로그인 성공 후 발급 받은 accessToken", required = true, dataType = "String", paramType = "header")
+            @ApiImplicitParam(name = "uid", value = "firebase 로그인 성공 후 " +
+                    "발급 받은 uid",
+                    required = true, dataType = "String", paramType = "header")
     })
     @PostMapping("/up")
-    public ResponseEntity<?> signUp(@RequestBody SignRequest signRequest, HttpServletRequest httpServletRequest) throws FirebaseAuthException {
+    public ResponseEntity<?> signUp(@RequestBody SignRequest signRequest,
+                                    HttpServletRequest httpServletRequest)
+            throws FirebaseAuthException {
         logger.info("signUp - 호출, request - " + signRequest);
 
-        String idToken = httpServletRequest.getHeader("accessToken");
-        FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
-        signRequest.setUid(decodedToken.getUid());
+        signRequest.setUid(httpServletRequest.getHeader("uid"));
 
         if ( signService.signUp(signRequest).equals("Success") ) {
             logger.info("Sign Up Success!");
@@ -50,36 +51,6 @@ public class SignController {
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
         else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    @Operation(summary = "인증 유효 확인", description = "access, refresh token 입력")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "accessToken", value = "firebase 로그인 성공 후 " +
-                    "발급 받은 accessToken",
-                    required = true, dataType = "String", paramType = "header"),
-            @ApiImplicitParam(name = "refreshToken", value = "firebase 로그인 성공 후 " +
-                    "발급 받은 refreshToken",
-                    required = true, dataType = "String", paramType = "header")
-    })
-    @GetMapping("/verify")
-    public ResponseEntity<?> verifyTest(HttpServletRequest httpServletRequest) throws FirebaseAuthException {
-        logger.info("verify token");
-
-        String idToken = httpServletRequest.getHeader("accessToken");
-        logger.info("idToken : " + idToken);
-
-        String reToken = httpServletRequest.getHeader("refreshToken");
-        logger.info("reToken : " + reToken);
-
-        try {
-            Map<String, String> userMap =  TokenUtils.getInstance().getToken(idToken, reToken);
-
-            return new ResponseEntity<>(userMap, HttpStatus.OK);
-        } catch (Exception e) {
-            logger.info("verifyTest error : " + e);
-
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
