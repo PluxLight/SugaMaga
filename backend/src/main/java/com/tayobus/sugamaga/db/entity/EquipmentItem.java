@@ -45,5 +45,5 @@ public class EquipmentItem {
     @Column(nullable = false)
     @JoinColumn(name = "equip_type")
     private int equipType;
-    
+
 }
