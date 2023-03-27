@@ -1,7 +1,6 @@
 package com.tayobus.sugamaga.api.controller;
 
 import com.google.firebase.auth.FirebaseAuthException;
-import com.tayobus.sugamaga.api.common.utils.TokenUtils;
 import com.tayobus.sugamaga.api.request.HistoryRequest;
 import com.tayobus.sugamaga.api.service.GameService;
 import com.tayobus.sugamaga.db.entity.*;
@@ -141,8 +140,8 @@ public class GameController {
 
     @Operation(summary = "경기 기록 저장", description = "game result save")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "accessToken", value = "firebase 로그인 성공 후 " +
-                    "발급 받은 accessToken",
+            @ApiImplicitParam(name = "uid", value = "firebase 로그인 성공 후 " +
+                    "발급 받은 uid",
                     required = true, dataType = "String", paramType = "header")
     })
     @PostMapping("/history")
@@ -152,8 +151,7 @@ public class GameController {
         logger.info("post history");
 
         try {
-            String uid = TokenUtils.getInstance()
-                    .getUid(httpServletRequest.getHeader("accessToken"));
+            String uid = httpServletRequest.getHeader("uid");
 
             historyRequest.setUid(uid);
 
@@ -169,8 +167,8 @@ public class GameController {
 
     @Operation(summary = "경기 기록 조회", description = "game result get")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "accessToken", value = "firebase 로그인 성공 후 " +
-                    "발급 받은 accessToken",
+            @ApiImplicitParam(name = "uid", value = "firebase 로그인 성공 후 " +
+                    "발급 받은 uid",
                     required = true, dataType = "String", paramType = "header")
     })
     @GetMapping("/history")
@@ -179,8 +177,7 @@ public class GameController {
         logger.info("get history");
 
         try {
-            String uid = TokenUtils.getInstance()
-                    .getUid(httpServletRequest.getHeader("accessToken"));
+            String uid = httpServletRequest.getHeader("uid");
 
             List<History> historyList = gameService.getHistory(uid);
             Map<String, Object> result = new HashMap<>();
