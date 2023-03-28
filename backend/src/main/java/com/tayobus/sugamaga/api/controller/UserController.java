@@ -23,7 +23,58 @@ import javax.servlet.http.HttpServletRequest;
 public class UserController {
     private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
+    private final static String SUCCESS = "Success";
+    private final static String FAIL = "Fail";
     private final UserService userService;
+
+    @Operation(summary = "유저 닉네임 조회", description = "user nickname get")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "uid", value = "firebase 로그인 성공 후 " +
+                    "발급 받은 uid",
+                    required = true, dataType = "String", paramType = "header")
+    })
+    @GetMapping(produces = "text/plain;charset=UTF-8")
+    public ResponseEntity<?> getNickname(HttpServletRequest httpServletRequest) throws FirebaseAuthException {
+        logger.info("get Nickname");
+
+        String uid = httpServletRequest.getHeader("uid");
+
+        try {
+            String Nickname = userService.getUserNickname(uid);
+
+            return new ResponseEntity<>(Nickname, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.info(e.toString());
+
+            return new ResponseEntity<>("Fail", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Operation(summary = "유저 닉네임 수정", description = "user nickname put")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "uid", value = "firebase 로그인 성공 후 " +
+                    "발급 받은 uid",
+                    required = true, dataType = "String", paramType = "header")
+    })
+    @PutMapping()
+    public ResponseEntity<?> putNickname(@RequestParam String userNickname, HttpServletRequest httpServletRequest) throws FirebaseAuthException {
+        logger.info("put Nickname");
+
+        String uid = httpServletRequest.getHeader("uid");
+
+        try {
+            if (userService.putUserNickname(userNickname, uid)) {
+                return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+            }
+            else {
+                return new ResponseEntity<>(FAIL, HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            logger.info(e.toString());
+
+            return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
+        }
+    }
 
     @Autowired
     public UserController(UserService userService) {
@@ -49,7 +100,7 @@ public class UserController {
         } catch (Exception e) {
             logger.info(e.toString());
 
-            return new ResponseEntity<>("Fail", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -69,34 +120,11 @@ public class UserController {
         try {
             userService.putUserCustom(uid, userCustomRequest);
 
-            return new ResponseEntity<>("Success", HttpStatus.OK);
+            return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
         } catch (Exception e) {
             logger.info(e.toString());
 
-            return new ResponseEntity<>("Fail", HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    @Operation(summary = "유저 닉네임 조회", description = "user nickname get")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "uid", value = "firebase 로그인 성공 후 " +
-                    "발급 받은 uid",
-                    required = true, dataType = "String", paramType = "header")
-    })
-    @GetMapping(produces = "text/plain;charset=UTF-8")
-    public ResponseEntity<?> getNickname(HttpServletRequest httpServletRequest) throws FirebaseAuthException {
-        logger.info("get Nickname");
-
-        String uid = httpServletRequest.getHeader("uid");
-
-        try {
-            String Nickname = userService.getUserNickname(uid);
-
-            return new ResponseEntity<>(Nickname, HttpStatus.OK);
-        } catch (Exception e) {
-            logger.info(e.toString());
-
-            return new ResponseEntity<>("Fail", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
         }
     }
 
