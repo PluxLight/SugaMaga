@@ -36,7 +36,7 @@ public class UserController {
                     "발급 받은 uid",
                     required = true, dataType = "String", paramType = "header")
     })
-    @GetMapping("/custom")
+    @GetMapping(path = "/custom")
     public ResponseEntity<?> getCustom(HttpServletRequest httpServletRequest) throws FirebaseAuthException {
         logger.info("get custom");
 
@@ -60,7 +60,7 @@ public class UserController {
                     "발급 받은 uid",
                     required = true, dataType = "String", paramType = "header")
     })
-    @PutMapping ("/custom")
+    @PutMapping(path = "/custom")
     public ResponseEntity<?> putCustom(@RequestBody UserCustomRequest userCustomRequest, HttpServletRequest httpServletRequest) throws FirebaseAuthException {
         logger.info("put custom");
 
@@ -70,6 +70,29 @@ public class UserController {
             userService.putUserCustom(uid, userCustomRequest);
 
             return new ResponseEntity<>("Success", HttpStatus.OK);
+        } catch (Exception e) {
+            logger.info(e.toString());
+
+            return new ResponseEntity<>("Fail", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Operation(summary = "유저 닉네임 조회", description = "user nickname get")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "uid", value = "firebase 로그인 성공 후 " +
+                    "발급 받은 uid",
+                    required = true, dataType = "String", paramType = "header")
+    })
+    @GetMapping(produces = "text/plain;charset=UTF-8")
+    public ResponseEntity<?> getNickname(HttpServletRequest httpServletRequest) throws FirebaseAuthException {
+        logger.info("get Nickname");
+
+        String uid = httpServletRequest.getHeader("uid");
+
+        try {
+            String Nickname = userService.getUserNickname(uid);
+
+            return new ResponseEntity<>(Nickname, HttpStatus.OK);
         } catch (Exception e) {
             logger.info(e.toString());
 
