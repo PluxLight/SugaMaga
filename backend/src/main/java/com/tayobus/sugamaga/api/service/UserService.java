@@ -1,6 +1,7 @@
 package com.tayobus.sugamaga.api.service;
 
 import com.tayobus.sugamaga.api.request.UserCustomRequest;
+import com.tayobus.sugamaga.db.entity.User;
 import com.tayobus.sugamaga.db.entity.UserCustom;
 import com.tayobus.sugamaga.db.repository.UserCustomRepository;
 import com.tayobus.sugamaga.db.repository.UserRepository;
@@ -8,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -40,6 +43,18 @@ public class UserService {
         logger.info(userCustom.toString());
 
         userCustomRepository.save(userCustom);
+    }
+
+    public String getUserNickname(String uid) {
+        Optional<User> user = userRepository.findByUid(uid);
+
+        if (user.isPresent()) {
+            return user.get().getNickname();
+        }
+        else {
+            return "Fail";
+        }
+
     }
 
 }
