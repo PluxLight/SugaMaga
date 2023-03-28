@@ -23,6 +23,31 @@ public class UserService {
         return userRepository.findByUid(uid).get().getUserIdx();
     }
 
+    public String getUserNickname(String uid) {
+        Optional<User> user = userRepository.findByUid(uid);
+
+        if (user.isPresent()) {
+            return user.get().getNickname();
+        }
+        else {
+            return "Fail";
+        }
+    }
+
+    public boolean putUserNickname(String userNickname, String uid) {
+        Optional<User> user = userRepository.findByUid(uid);
+
+        if (user.isPresent()) {
+            user.get().setNickname(userNickname);
+            userRepository.save(user.get());
+            
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     public UserCustom getUserCustom(String uid) {
         UserCustom userCustom = userCustomRepository.findByUid(uid);
 
@@ -43,18 +68,6 @@ public class UserService {
         logger.info(userCustom.toString());
 
         userCustomRepository.save(userCustom);
-    }
-
-    public String getUserNickname(String uid) {
-        Optional<User> user = userRepository.findByUid(uid);
-
-        if (user.isPresent()) {
-            return user.get().getNickname();
-        }
-        else {
-            return "Fail";
-        }
-
     }
 
 }
