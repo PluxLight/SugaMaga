@@ -39,7 +39,7 @@ public class GameController {
     }
 
     @Operation(summary = "드랍 테이블 조회", description = "drop table get")
-    @GetMapping("/droptable")
+    @GetMapping(path = "/droptable")
     public ResponseEntity<?> getDropTable(@RequestParam int tableIdx) {
         logger.info("get drop table");
 
@@ -64,7 +64,7 @@ public class GameController {
     }
 
     @Operation(summary = "소비 아이템 조회", description = "consumeable item get")
-    @GetMapping("/consume")
+    @GetMapping(path = "/consume")
     public ResponseEntity<?> getConsumableItem(@RequestParam int consumableItemIdx) {
         logger.info("get consumable item");
 
@@ -89,7 +89,7 @@ public class GameController {
     }
 
     @Operation(summary = "장비 아이템 조회", description = "equipment item get")
-    @GetMapping("/equip")
+    @GetMapping(path="/equip")
     public ResponseEntity<?> getEquipmentItem(@RequestParam int equipmentItemIdx) {
         logger.info("get equipment item");
 
@@ -114,7 +114,7 @@ public class GameController {
     }
 
     @Operation(summary = "몬스터 조회", description = "monster get")
-    @GetMapping("/monster")
+    @GetMapping(path = "/monster")
     public ResponseEntity<?> getMonster(@RequestParam int monsterIdx) {
         logger.info("get monster");
 
@@ -144,16 +144,14 @@ public class GameController {
                     "발급 받은 uid",
                     required = true, dataType = "String", paramType = "header")
     })
-    @PostMapping("/history")
+    @PostMapping(path = "/history")
     public ResponseEntity<?> saveHistory(@RequestBody HistoryRequest historyRequest,
                                          HttpServletRequest httpServletRequest)
             throws FirebaseAuthException {
         logger.info("post history");
 
         try {
-            String uid = httpServletRequest.getHeader("uid");
-
-            historyRequest.setUid(uid);
+            historyRequest.setUid(httpServletRequest.getHeader("uid"));
 
             gameService.saveHistory(historyRequest);
 
@@ -171,15 +169,13 @@ public class GameController {
                     "발급 받은 uid",
                     required = true, dataType = "String", paramType = "header")
     })
-    @GetMapping("/history")
+    @GetMapping(path = "/history")
     public ResponseEntity<?> getHistory(HttpServletRequest httpServletRequest)
             throws FirebaseAuthException {
         logger.info("get history");
 
         try {
-            String uid = httpServletRequest.getHeader("uid");
-
-            List<History> historyList = gameService.getHistory(uid);
+            List<History> historyList = gameService.getHistory(httpServletRequest.getHeader("uid"));
             Map<String, Object> result = new HashMap<>();
             result.put(RESULT, historyList);
 
