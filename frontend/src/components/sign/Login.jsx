@@ -1,6 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 
 import React, { useState } from "react";
+import { useRecoilState } from 'recoil';
+import { user } from "../../Store";
+
 import {
     firebaseAuth, signInWithEmailAndPassword
 } from "../../firebase-config";
@@ -9,8 +12,9 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("　");
-  const [user, setUser] = useState();
   const [isAppropriate, setIsAppropriate] = useState();
+
+  const [login, setLogin] = useRecoilState(user);
 
   const navigate = useNavigate();
 
@@ -32,12 +36,10 @@ function Login() {
       //   return;
       // }
       
-      console.log(curUserInfo);
-      setUser(curUserInfo.user);
+      // console.log(curUserInfo);
+      setLogin(curUserInfo.user);
       setErrorMsg(" ");
       navigate('/')
-      
-
     } catch (err) {
       setIsAppropriate(false);
       // console.log(err.code);
@@ -49,7 +51,7 @@ function Login() {
           setErrorMsg('잘못된 비밀번호입니다');
           break;
         default:
-          setErrorMsg('signin unknown error ...');
+          console.log('signin unknown error ...');
           break;
       }
     }
