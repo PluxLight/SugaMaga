@@ -25,9 +25,15 @@ public class UserController {
 
     private final static String SUCCESS = "Success";
     private final static String FAIL = "Fail";
+
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
     private final UserService userService;
 
-    @Operation(summary = "유저 닉네임 조회", description = "user nickname get")
+    @Operation(summary = "유저 닉네임 조회", description = "헤더에 uid 입력")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "uid", value = "firebase 로그인 성공 후 " +
                     "발급 받은 uid",
@@ -50,7 +56,7 @@ public class UserController {
         }
     }
 
-    @Operation(summary = "유저 닉네임 수정", description = "user nickname put")
+    @Operation(summary = "유저 닉네임 수정", description = "헤더에 uid 입력, 파라미터로 uid 입력")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "uid", value = "firebase 로그인 성공 후 " +
                     "발급 받은 uid",
@@ -76,12 +82,28 @@ public class UserController {
         }
     }
 
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
+    @Operation(summary = "유저 닉네임 사용가능 여부 조회", description = "유저 닉네임 입력")
+    @GetMapping("/nickname")
+    public ResponseEntity<?> searchNickname(@RequestParam String nickname) {
+        logger.info("search nickname : " + nickname);
+
+        try {
+            if (userService.searchNickname(nickname)) {
+                // 200
+                return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+            }
+            else {
+                // 403
+                return new ResponseEntity<>(FAIL, HttpStatus.FORBIDDEN);
+            }
+        } catch (Exception e) {
+            logger.info(e.toString());
+            // 400
+            return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
+        }
     }
 
-    @Operation(summary = "유저 커스텀 조회", description = "user custom info get")
+    @Operation(summary = "유저 커스텀 조회", description = "헤더에 uid 입력")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "uid", value = "firebase 로그인 성공 후 " +
                     "발급 받은 uid",
@@ -105,7 +127,7 @@ public class UserController {
     }
 
 
-    @Operation(summary = "유저 커스텀 수정", description = "user custom info get")
+    @Operation(summary = "유저 커스텀 수정", description = "헤더에 uid 입력, 파라미터로 변경할 커스텀 입력")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "uid", value = "firebase 로그인 성공 후 " +
                     "발급 받은 uid",
