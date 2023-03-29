@@ -36,13 +36,13 @@ function Login() {
       //   return;
       // }
       
-      // console.log(curUserInfo);
+      console.log(curUserInfo);
       setLogin(curUserInfo.user);
       setErrorMsg(" ");
       navigate('/')
     } catch (err) {
+      console.log(err.code);
       setIsAppropriate(false);
-      // console.log(err.code);
       switch (err.code) {
         case 'auth/user-not-found.':
           setErrorMsg('존재하지 않는 유저입니다');

@@ -4,8 +4,18 @@ import styled from 'styled-components';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { user } from '../../Store';
 
+import {
+  getAuth,
+  firebaseAuth,
+  signOut
+} from "../../firebase-config";
+
 const Header = () => {
+  const [recoilUser, setRecoilUser] = useRecoilState(user);
+  
   const LoginUser = useRecoilValue(user);
+
+  const auth = getAuth();
 
   const menus1 = [
       { name: 'Home', path: '/' },
@@ -56,15 +66,32 @@ const Header = () => {
           {menu.name}
         </NavBarStyle>
       );
-    });
+  });
+  
+  const LogOutEvent = async () => {
+    setRecoilUser(null);
+    const curUserInfo = await auth.signOut()
+      .then(() => {
+        console.log("logout");
+      })
+      .catch(e => {
+        console.log("fail : " + e);
+      });
+      
+  }
   
   return (
     <HeaderArea>
       <Menu>{FirstMenu}</Menu>
       <Menu2>
-        <Logout>
+        {LoginUser != null ? <LogoutLink to={'/login'}
+        onClick={LogOutEvent}
+        size="24"
+        style={{ margin: '10px', marginLeft: '10px', cursor: 'pointer' }}>
           로그아웃
-        </Logout>
+        </LogoutLink>
+        : <></>}
+        
         {SecondMenu}</Menu2>
     </HeaderArea>
   );
@@ -90,7 +117,7 @@ const Menu2 = styled.div`
   align-items: center;
 `;
 
-const Logout = styled.div`
+const LogoutLink = styled.div`
   margin-right: 10px;
   display: flex;
   align-items: center;
