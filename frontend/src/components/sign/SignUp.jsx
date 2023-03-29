@@ -6,8 +6,8 @@ import React, { useState, useEffect } from "react";
 import {
     firebaseAuth, createUserWithEmailAndPassword,
     sendEmailVerification
-} from "./../firebase-config";
-import { signup, searchNickname } from "./../api/sign";
+} from "../../firebase-config";
+import { signup, searchNickname } from "../../api/sign";
 
 function SignUp() {
   const [email, setEmail] = useState("");
