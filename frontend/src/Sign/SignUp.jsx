@@ -8,7 +8,7 @@ import {
 } from "./../firebase-config";
 import axios from "axios";
 
-function Login() {
+function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("　");
@@ -195,7 +195,7 @@ function Login() {
   );
 }
 
-export default Login;
+export default SignUp;
 
 const FileDown = styled.button`
   height: 40px;
