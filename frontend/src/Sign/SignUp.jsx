@@ -23,8 +23,6 @@ function SignUp() {
   const [nicknameOk, setNicknameOk] = useState(false);
   
   const [errorMsg, setErrorMsg] = useState("　");
-  const [user, setUser] = useState();
-  const [isAppropriate, setIsAppropriate] = useState();
 
   const regexNickname = /^[A-Za-z0-9가-힣]{2,16}$/;
   const regexPassword =
@@ -66,6 +64,7 @@ function SignUp() {
       setMsgPassword(
         '숫자+영문자+특수문자 조합으로 6자리 이상 입력해주세요.'
       );
+      setPasswordOk(false);
     }
 
   }
@@ -110,6 +109,8 @@ function SignUp() {
     try {
       setErrorMsg('　');
       if (!nicknameOk || !passwordOk) {
+        setErrorMsg('입력한 내용을 다시 확인해주세요');
+        console.log('not allow signup');
         return;
       }
 
@@ -117,7 +118,6 @@ function SignUp() {
         firebaseAuth, email, password)
         .then(() => {
           let user = firebaseAuth.currentUser;
-          console.log("user uid : " + user.uid);
 
           sendEmailVerification(user)
             .then(function () {
@@ -131,6 +131,7 @@ function SignUp() {
                   uid: user.uid,
                 }
               };
+
               signup(
                 param, config,
                 ({ data }) => {
@@ -140,17 +141,13 @@ function SignUp() {
                 (error) => {
                   console.log(error);
                 });
-
             })
             .catch("email send fail");
         });
       console.log('회원가입 성공!');
-      emailChange("");
-      passwordChange("");
-      nicknameChange("");
 
     } catch (err) {
-      //console.log(err.code);
+      
       switch (err.code) {
         case 'auth/weak-password':
           setErrorMsg('비밀번호는 6자리 이상이어야 합니다');
@@ -162,7 +159,7 @@ function SignUp() {
           setErrorMsg('이미 가입되어 있는 계정입니다');
           break;
         default:
-          setErrorMsg('signup unknown error ...');
+          console.log('signup unknown error ...');
           break;
       }
     }
