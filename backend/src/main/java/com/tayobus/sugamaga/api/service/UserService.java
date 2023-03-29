@@ -48,6 +48,17 @@ public class UserService {
         }
     }
 
+    public boolean searchNickname(String nickname) {
+        Optional<User> user = userRepository.findByNickname(nickname);
+
+        if (user.isPresent()) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
     public UserCustom getUserCustom(String uid) {
         UserCustom userCustom = userCustomRepository.findByUid(uid);
 
