@@ -23,8 +23,8 @@ public class EquipmentItem {
     private String equipName;
 
     @Column(nullable = false)
-    @JoinColumn(name = "equip_value")
-    private int equipValue;
+    @JoinColumn(name = "equip_damage")
+    private float equipDamage;
 
     @Column(nullable = false)
     @JoinColumn(name = "equip_speed")
@@ -36,7 +36,7 @@ public class EquipmentItem {
 
     @Column(nullable = false)
     @JoinColumn(name = "skill_damage")
-    private int skillDamage;
+    private float skillDamage;
 
     @Column(nullable = false)
     @JoinColumn(name = "skill_cooltime")
