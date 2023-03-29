@@ -3,17 +3,17 @@ import './App.css';
 import React from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import styled from 'styled-components';
+
+import Header from "./Nav/Header";
+
 import Home from "./Home/Home";
+import Download from "./Download/Download";
+import History from "./History/History";
+import Introduce from "./Introduce/Introduce";
 import MyPage from "./MyPage/MyPage";
 import Login from "./Sign/Login";
 import SignUp from "./Sign/SignUp";
 import SignUpSuccess from "./Sign/SignUpSuccess"; 
-import History from "./History/History";
-import Download from "./Download/Download";
-import Introduce from "./Introduce/Introduce";
-
-
-import Header from "./Nav/Header";
 
 function App() {
   const router = useLocation();
