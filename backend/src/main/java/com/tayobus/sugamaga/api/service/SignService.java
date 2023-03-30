@@ -34,12 +34,15 @@ public class SignService {
             Random random = new Random();
 
             userCustomRepository.save(UserCustom.builder()
-                    .cap(random.nextInt(11))
-                    .hair(random.nextInt(10) + 1)
-                    .face(random.nextInt(10) + 1)
-                    .eyes(random.nextInt(10) + 1)
-                    .mouse(random.nextInt(10) + 1)
-                    .body(random.nextInt(10) + 1)
+                    .body(random.nextInt(20))
+                    .ac(random.nextInt(40))
+                    .back(random.nextInt(7))
+                    .eye(random.nextInt(12))
+                    .hair(random.nextInt(14))
+                    .hat(random.nextInt(15))
+                    .head(random.nextInt(20))
+                    .mouth(random.nextInt(12))
+                    .eyebrow(random.nextInt(3))
                     .uid(request.getUid())
                     .build());
 
