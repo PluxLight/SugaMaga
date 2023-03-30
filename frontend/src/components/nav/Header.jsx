@@ -83,11 +83,12 @@ const Header = () => {
   });
   
   const LogOutEvent = async () => {
+    navigate("/")
+    
     const curUserInfo = await signOut(firebaseAuth)
       .then(() => {
         console.log("logout");
         setRecoilNickname("");
-        navigate("/")
       })
       .catch(e => {
         console.log("fail : " + e);
@@ -139,12 +140,9 @@ const LogoutLink = styled.div`
   color: black;
   font-size: 20px;
   outline: invert;
-  &:link {
-  transition: 0.5s;
-  text-decoration: none;
-  }
   &:hover {
-  color: white;
+    transition: 0.5s;
+    color: white;
   }
   &.active {
   color: HotPink;
