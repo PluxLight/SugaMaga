@@ -52,12 +52,12 @@ export default App;
 
 const MainHeader = styled.div`
   width: 100%;
-  height: 60px;
+  height: 10vh;
 `;
 
 const MainArea = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 90vh;
   display: flex;
   justify-content: center;
 `;
