@@ -69,12 +69,15 @@ public class UserService {
 
     public void putUserCustom(String uid, UserCustomRequest userCustomRequest) {
         UserCustom userCustom = userCustomRepository.findByUid(uid);
-        userCustom.setCap(userCustomRequest.getCap());
-        userCustom.setHair(userCustomRequest.getHair());
-        userCustom.setFace(userCustomRequest.getFace());
-        userCustom.setEyes(userCustomRequest.getEyes());
-        userCustom.setMouse(userCustomRequest.getMouse());
         userCustom.setBody(userCustomRequest.getBody());
+        userCustom.setAc(userCustomRequest.getAc());
+        userCustom.setBack(userCustomRequest.getBack());
+        userCustom.setEye(userCustomRequest.getEye());
+        userCustom.setHair(userCustomRequest.getHair());
+        userCustom.setHat(userCustomRequest.getHat());
+        userCustom.setHead(userCustomRequest.getHead());
+        userCustom.setMouth(userCustomRequest.getMouth());
+        userCustom.setEyebrow(userCustomRequest.getEyebrow());
 
         logger.info(userCustom.toString());
 
