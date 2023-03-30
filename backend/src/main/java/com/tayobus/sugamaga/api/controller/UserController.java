@@ -1,6 +1,6 @@
 package com.tayobus.sugamaga.api.controller;
 
-import com.google.firebase.auth.FirebaseAuthException;
+import com.tayobus.sugamaga.api.request.NicknameRequest;
 import com.tayobus.sugamaga.api.request.UserCustomRequest;
 import com.tayobus.sugamaga.api.service.UserService;
 import com.tayobus.sugamaga.db.entity.UserCustom;
@@ -40,7 +40,7 @@ public class UserController {
                     required = true, dataType = "String", paramType = "header")
     })
     @GetMapping(produces = "text/plain;charset=UTF-8")
-    public ResponseEntity<?> getNickname(HttpServletRequest httpServletRequest) throws FirebaseAuthException {
+    public ResponseEntity<?> getNickname(HttpServletRequest httpServletRequest) {
         logger.info("get Nickname");
 
         String uid = httpServletRequest.getHeader("uid");
@@ -56,20 +56,21 @@ public class UserController {
         }
     }
 
-    @Operation(summary = "유저 닉네임 수정", description = "헤더에 uid 입력, 파라미터로 uid 입력")
+    @Operation(summary = "유저 닉네임 수정", description = "헤더에 uid 입력, 바디에 nickname 입력")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "uid", value = "firebase 로그인 성공 후 " +
                     "발급 받은 uid",
                     required = true, dataType = "String", paramType = "header")
     })
     @PutMapping()
-    public ResponseEntity<?> putNickname(@RequestParam String userNickname, HttpServletRequest httpServletRequest) throws FirebaseAuthException {
-        logger.info("put Nickname");
+    public ResponseEntity<?> putNickname(@RequestBody NicknameRequest nicknameRequest,
+                                         HttpServletRequest httpServletRequest) {
+        logger.info("put Nickname : " + nicknameRequest.getNickname());
 
         String uid = httpServletRequest.getHeader("uid");
 
         try {
-            if (userService.putUserNickname(userNickname, uid)) {
+            if (userService.putUserNickname(nicknameRequest.getNickname(), uid)) {
                 return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
             }
             else {
@@ -110,7 +111,7 @@ public class UserController {
                     required = true, dataType = "String", paramType = "header")
     })
     @GetMapping(path = "/custom")
-    public ResponseEntity<?> getCustom(HttpServletRequest httpServletRequest) throws FirebaseAuthException {
+    public ResponseEntity<?> getCustom(HttpServletRequest httpServletRequest) {
         logger.info("get custom");
 
         String uid = httpServletRequest.getHeader("uid");
@@ -134,7 +135,8 @@ public class UserController {
                     required = true, dataType = "String", paramType = "header")
     })
     @PutMapping(path = "/custom")
-    public ResponseEntity<?> putCustom(@RequestBody UserCustomRequest userCustomRequest, HttpServletRequest httpServletRequest) throws FirebaseAuthException {
+    public ResponseEntity<?> putCustom(@RequestBody UserCustomRequest userCustomRequest,
+                                       HttpServletRequest httpServletRequest) {
         logger.info("put custom");
 
         String uid = httpServletRequest.getHeader("uid");
