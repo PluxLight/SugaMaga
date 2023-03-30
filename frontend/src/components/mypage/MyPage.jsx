@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
 import { user, nickname } from "../../Store";
 
-import HorizonLine from "../../utils/HorizonLine";
+import PageHeader from "../../utils/PageHeader";
 import { getUserInfo, searchNickname, putUserNickname } from "../../api/sign";
 
 import { updatePassword } from "firebase/auth";
@@ -173,13 +173,12 @@ const MyPage = () => {
     
     return (
         <MyPageStyle>
-            <h1>MyPage</h1>
-            <HorizonLine text="Info" />
-            <h2>Email : {recoilUser.email}</h2>
+            <PageHeader title="나의 정보" horizonTitle="Info" />
+            <h2>이메일 : {recoilUser.email}</h2>
             
             <form>
                 <label>
-                    nickname : &nbsp;
+                    닉네임 : &nbsp;
                     <input
                         type="text"
                         name="nickname"
@@ -193,7 +192,7 @@ const MyPage = () => {
             </form>
             <form>
                 <label>
-                    password : &nbsp;
+                    비밀번호 : &nbsp;
                     <input
                     type="password"
                     name="password"
@@ -203,7 +202,7 @@ const MyPage = () => {
                 </label>
                 <br />
                 <label>
-                    check password : &nbsp;
+                    비밀번호 확인 : &nbsp;
                     <input
                     type="password"
                     name="checkPassword"
