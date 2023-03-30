@@ -26,12 +26,17 @@ const Header = () => {
   
   const LoginUser = useRecoilValue(user);
 
-  const menus1 = [
-      { name: 'Home', path: '/' },
+  const menus1 = 
+    (LoginUser == null ?
+      [{ name: 'Home', path: '/' },
+      { name: '게임소개', path: '/introduce' },
+        { name: '다운로드', path: '/download' }]
+      : [{ name: 'Home', path: '/' },
       { name: '게임소개', path: '/introduce' },
       { name: '게임기록', path: '/history' },
-      { name: '다운로드', path: '/download' }
-  ];
+        { name: '다운로드', path: '/download' }]
+    );
+      
 
   const menus2 =
     (LoginUser == null ?
