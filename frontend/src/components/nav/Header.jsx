@@ -1,21 +1,30 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { useRecoilValue, useRecoilState } from 'recoil';
-import { user } from '../../Store';
+import { user, nickname } from '../../Store';
+import React, { useEffect } from "react";
 
 import {
-  getAuth,
-  firebaseAuth,
+  firebaseAuth, onAuthStateChanged,
   signOut
 } from "../../firebase-config";
 
 const Header = () => {
+  const [login, setLogin] = useRecoilState(user);
   const [recoilUser, setRecoilUser] = useRecoilState(user);
+  const [recoilNickname, setRecoilNickname] = useRecoilState(nickname);
+  
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    onAuthStateChanged(firebaseAuth, fbUser => {
+      const userCopy = JSON.parse(JSON.stringify(fbUser));
+      setLogin(userCopy);
+    })
+  }, [setLogin])
   
   const LoginUser = useRecoilValue(user);
-
-  const auth = getAuth();
 
   const menus1 = [
       { name: 'Home', path: '/' },
@@ -69,15 +78,15 @@ const Header = () => {
   });
   
   const LogOutEvent = async () => {
-    setRecoilUser(null);
-    const curUserInfo = await auth.signOut()
+    const curUserInfo = await signOut(firebaseAuth)
       .then(() => {
         console.log("logout");
+        setRecoilNickname("");
+        navigate("/")
       })
       .catch(e => {
         console.log("fail : " + e);
       });
-      
   }
   
   return (
@@ -95,6 +104,7 @@ const Header = () => {
         {SecondMenu}</Menu2>
     </HeaderArea>
   );
+
 };
 
 export default Header;
