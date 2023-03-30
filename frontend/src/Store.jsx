@@ -9,6 +9,12 @@ export const user = atom({
     effects_UNSTABLE: [persistAtom],
 })
 
+export const nickname = atom({
+    key:"nickname",
+    default:{},
+    effects_UNSTABLE: [persistAtom],
+})
+
 export const APIroot = atom({
     key:"APIroot",
     default: "https://i8d109.p.ssafy.io/api",
