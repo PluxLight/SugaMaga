@@ -60,4 +60,5 @@ const MainArea = styled.div`
   height: 90vh;
   display: flex;
   justify-content: center;
+  margin: 0;
 `;
