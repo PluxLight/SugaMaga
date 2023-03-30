@@ -10,4 +10,15 @@ function searchNickname(param, success, fail) {
   api.get(`user/nickname`, { params: param }).then(success).catch(fail);
 }
 
-export { signup, searchNickname };
+function getUserInfo(config, success, fail) {
+  api.get(`user`, config).then(success).catch(fail);
+}
+
+function putUserNickname(nickname, config, success, fail) {
+  api.put(`user`, JSON.stringify(nickname), config).then(success).catch(fail);
+}
+
+
+
+
+export { signup, searchNickname, getUserInfo, putUserNickname };
