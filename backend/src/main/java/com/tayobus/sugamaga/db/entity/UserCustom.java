@@ -1,7 +1,9 @@
 package com.tayobus.sugamaga.db.entity;
 
-import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
@@ -21,35 +23,33 @@ public class UserCustom {
     private int userCustomIdx;
 
     @Column(nullable = false)
-    @ApiModelProperty(value="유저 uid", example = "a1b2c3d4")
     private String uid;
 
     @Column(nullable = false)
-    @ApiModelProperty(value="모자", example = "1")
-    private int cap;
+    private int body;
 
     @Column(nullable = false)
-    @ApiModelProperty(value="머리", example = "1")
+    private int ac;
+
+    @Column(nullable = false)
+    private int back;
+
+    @Column(nullable = false)
+    private int eye;
+
+    @Column(nullable = false)
     private int hair;
 
     @Column(nullable = false)
-    @ApiModelProperty(value="얼굴", example = "1")
-    private int face;
+    private int hat;
 
     @Column(nullable = false)
-    @ApiModelProperty(value="눈", example = "1")
-    private int eyes;
+    private int head;
 
     @Column(nullable = false)
-    @ApiModelProperty(value="입", example = "1")
-    private int mouse;
+    private int mouth;
 
     @Column(nullable = false)
-    @ApiModelProperty(value="몸통", example = "1")
-    private int body;
-
-/*    @OneToOne
-    @JoinColumn(name = "uid")
-    private User user;*/
+    private int eyebrow;
 
 }
