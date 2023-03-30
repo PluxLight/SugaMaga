@@ -1,11 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRecoilState } from 'recoil';
 import { user } from "../../Store";
 
 import {
-    firebaseAuth, signInWithEmailAndPassword
+  firebaseAuth, signInWithEmailAndPassword,
+  onAuthStateChanged
 } from "../../firebase-config";
 
 function Login() {
@@ -17,6 +18,13 @@ function Login() {
   const [login, setLogin] = useRecoilState(user);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    onAuthStateChanged(firebaseAuth, fbUser => {
+      const userCopy = JSON.parse(JSON.stringify(fbUser));
+      setLogin(userCopy);
+    })
+  }, [setLogin])
 
   const emailChange = ({ target: { value } }) => {
     setEmail(value);
@@ -37,7 +45,7 @@ function Login() {
       // }
       
       console.log(curUserInfo);
-      setLogin(curUserInfo.user);
+      // setLogin(curUserInfo.user);
       setErrorMsg(" ");
       navigate('/')
     } catch (err) {
