@@ -62,9 +62,11 @@ const History = () => {
 export default History;
 
 const HistoryStyle = styled.div`    
-    width: 100vh;
+    width: 70%;
     height: 100%;
     justify-content: center;
+    background-color: white;
+    padding: 1%;
 `;
 
 const TableHeader = styled.div`

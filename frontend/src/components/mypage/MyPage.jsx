@@ -172,56 +172,123 @@ const MyPage = () => {
     }
     
     return (
-        <MyPageStyle>
-            <PageHeader title="나의 정보" horizonTitle="Info" />
-            <h2>이메일 : {recoilUser.email}</h2>
-            
-            <form>
-                <label>
-                    닉네임 : &nbsp;
-                    <input
-                        type="text"
-                        name="nickname"
-                        defaultValue={recoilNickname}
-                        onChange={nicknameChange} />
-                        <br />
-                        {msgNickname}
-                </label>
-                <br />
-                <input type="button" value="닉네임 변경" onClick={changeNicknameEvent} />
-            </form>
-            <form>
-                <label>
-                    비밀번호 : &nbsp;
-                    <input
-                    type="password"
-                    name="password"
-                    onChange={passwordChange} />
-                    <br />
-                    {msgPassword}
-                </label>
-                <br />
-                <label>
-                    비밀번호 확인 : &nbsp;
-                    <input
-                    type="password"
-                    name="checkPassword"
-                    onChange={checkPasswordChange} />
-                    <br />
-                    {msgCheckPassword}
-                </label>
-                <br />
-                <input type="button" value="비밀번호 변경" onClick={changePasswordEvent} />
-            </form>
-            <h3>{errorMsg}</h3>
-        </MyPageStyle>
+        <BackPage>
+            <MyPageStyle>
+                <PageHeader title="나의 정보" horizonTitle="Info" />
+                <InfoDivStyle>
+                    <InfoTextStyle>이메일</InfoTextStyle>
+                    <InfoDetailTextStyle>{recoilUser.email}</InfoDetailTextStyle>
+                </InfoDivStyle>
+
+                <InfoDivStyle>
+                    <InfoTextStyle>닉네임</InfoTextStyle>
+                    <InputStyle
+                            type="text"
+                            name="nickname"
+                            defaultValue={recoilNickname}
+                            onChange={nicknameChange} />
+                </InfoDivStyle>
+                <RightBox>
+                    <MsgStyle>{msgNickname}</MsgStyle>
+                    <ButtonStyle value="닉네임 변경" onClick={changeNicknameEvent} >
+                        닉네임 변경
+                    </ButtonStyle>
+                </RightBox>
+
+                <InfoDivStyle>
+                    <InfoTextStyle>비밀번호</InfoTextStyle>
+                    <InputStyle
+                            type="password"
+                            name="password"
+                            onChange={passwordChange} />
+                </InfoDivStyle>
+                <RightBox>
+                    <MsgStyle>{msgPassword}</MsgStyle>
+                </RightBox>
+
+                <InfoDivStyle>
+                    <InfoTextStyle>비밀번호 확인</InfoTextStyle>
+                    <InputStyle
+                            type="password"
+                            name="checkPassword"
+                            onChange={checkPasswordChange} />
+                </InfoDivStyle>
+                <RightBox>
+                    <MsgStyle>{msgCheckPassword}</MsgStyle>
+                    <ButtonStyle value="비밀번호 변경" onClick={changePasswordEvent} >비밀번호 변경</ButtonStyle>
+                </RightBox>
+                
+                {errorMsg}
+            </MyPageStyle>
+        </BackPage>
+        
     );
 };
 
 export default MyPage;
 
-const MyPageStyle = styled.div`    
-    width: 100vh;
+const BackPage = styled.div`
+    width: 70%;
     height: 100%;
+    background-color: white;
+    padding: 1%;
+    position: relative;
+`
+
+const MyPageStyle = styled.div`
+    width: 50%;
+    margin-left: 25%;
+    margin-top: 1%;
+`;
+
+const InfoDivStyle = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 5%;
+`;
+
+const InfoTextStyle = styled.div`
+    font-size: 28px;
+    font-family: gyeonggi_bold;
+`;
+
+const InfoDetailTextStyle = styled.div`
+    font-size: 18px;
+    font-family: gyeonggi_bold;
+`;
+
+const InputStyle = styled.input`
+    width: 60%;
+    height: 30px;
+    font-size: 18px;
+    font-family: gyeonggi_bold;
+`;
+
+const RightBox = styled.div`
+    float: right;
+    margin-top: 10px;
+    margin-bottom: 10px;
+`;
+
+const MsgStyle = styled.div`
+    display: inline-block;
+    float: right;
+    width: 100%;
+    height: 30px;
+    text-align: right;
+    font-size: 18px;
+    font-family: gyeonggi_bold;
+`;
+
+const ButtonStyle = styled.button`
+    display: inline-block;
+    float: right;
+    width: 150px;
+    height: 28px;
+    align-items: center;
     justify-content: center;
+    font-size: 22px;
+    font-family: gyeonggi_bold;
 `;
