@@ -34,12 +34,12 @@ const FormStyle = styled.div`
 
 const TitleTextStyle = styled.div`
     font-size: 28px;
-    font-family: gyeonggi_bold;
+    font-family: gyeonggi_title_bold;
 `;
 
 const InfoTextStyle = styled.div`
     font-size: 22px;
-    font-family: gyeonggi_bold;
+    font-family: gyeonggi_title_bold;
     margin-top: 15px;
     margin-bottom: 15px;
 `;
