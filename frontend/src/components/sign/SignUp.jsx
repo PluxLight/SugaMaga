@@ -5,9 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from "react";
 import {
     firebaseAuth, createUserWithEmailAndPassword,
-    sendEmailVerification
+    sendEmailVerification, signOut
 } from "../../firebase-config";
+
 import { signup, searchNickname } from "../../api/sign";
+import PageHeader from "../../utils/PageHeader";
 
 function SignUp() {
   const [email, setEmail] = useState("");
@@ -113,7 +115,9 @@ function SignUp() {
         console.log('not allow signup');
         return;
       }
-
+      
+      // 가입 -> 유저정보 받아오기 -> 이메일 송신 -> 유저정보 변수저장 ->
+      // DB에 유저정보 저장 -> 로그아웃해서 해더 로그인 상태해제
       const createdUser = await createUserWithEmailAndPassword(
         firebaseAuth, email, password)
         .then(() => {
@@ -122,6 +126,7 @@ function SignUp() {
           sendEmailVerification(user)
             .then(function () {
               console.log('email send success');
+              
               let param = {
                 email: email,
                 nickname: nickname
@@ -140,6 +145,14 @@ function SignUp() {
                 },
                 (error) => {
                   console.log(error);
+                });
+              
+              signOut(firebaseAuth)
+                .then(() => {
+                  console.log("logout");
+                })
+                .catch(e => {
+                  console.log("fail : " + e);
                 });
             })
             .catch("email send fail");
@@ -166,59 +179,118 @@ function SignUp() {
   }
 
   return (
-    <SignUpForm>
-      <h1>회원가입</h1>
-      <div>
-        <form>
-          <label>
-            email:
-            <input
-              type="email"
-              name="email"
-              onChange={emailChange} />
-          </label>
-          <br />
-          <label>
-            password:
-            <input
-              type="password"
-              name="password"
-              onChange={passwordChange} />
-              <br />
-              {msgPassword}
-          </label>
-          <br />
-          <label>
-            check password:
-            <input
-              type="password"
-              name="checkPassword"
-              onChange={checkPasswordChange} />
-            <br />
-            {msgCheckPassword}
-          </label>
-          <br />
-          <label>
-            nickname:
-            <input
-              type="text"
-              name="nickname"
-              onChange={nicknameChange} />
-            <br />
-            {msgNickname}
-          </label>
-          <br />
-          <input type="button" value="SignUp" onClick={signUpEvent} />
-        </form>
-        <h3>{errorMsg}</h3>
-      </div>
-    </SignUpForm>
+    <SignUpStyle>
+      <FormStyle>
+        <PageHeader title="회원가입" horizonTitle="SignUp" />
+        <InfoDivStyle>
+          <InfoTextStyle>이메일</InfoTextStyle>
+          <InputStyle
+            type="email"
+            name="email"
+            onChange={emailChange} />
+        </InfoDivStyle>
+
+        <InfoDivStyle>
+            <InfoTextStyle>비밀번호</InfoTextStyle>
+            <InputStyle
+                    type="password"
+                    name="password"
+                    onChange={passwordChange} />
+        </InfoDivStyle>
+        <RightBox>
+            <MsgStyle>{msgPassword}</MsgStyle>
+        </RightBox>
+
+        <InfoDivStyle>
+            <InfoTextStyle>비밀번호 확인</InfoTextStyle>
+            <InputStyle
+                    type="password"
+                    name="checkPassword"
+                    onChange={checkPasswordChange} />
+        </InfoDivStyle>
+        <RightBox>
+          <MsgStyle>{msgCheckPassword}</MsgStyle>
+        </RightBox>
+        
+        <InfoDivStyle>
+            <InfoTextStyle>닉네임</InfoTextStyle>
+            <InputStyle
+                    type="text"
+                    name="nickname"
+                    onChange={nicknameChange} />
+        </InfoDivStyle>
+        <RightBox>
+          <MsgStyle>{msgNickname}</MsgStyle>
+          <ButtonStyle value="회원가입" onClick={signUpEvent} >회원가입</ButtonStyle>
+          <MsgStyle>{errorMsg}</MsgStyle>
+        </RightBox>
+
+      </FormStyle>
+    </SignUpStyle>
+    
   );
 }
 
 export default SignUp;
 
+const SignUpStyle = styled.div`
+    width: 50%;
+    height: 80%;
+    margin-top: 20px;
+    background-color: white;
+`
 
-const SignUpForm = styled.div`
+const FormStyle = styled.div`
+    width: 70%;
+    margin-top: 5%;
+    margin-left: 15%;
+`;
 
+
+const InfoDivStyle = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 5%;
+`;
+
+const InfoTextStyle = styled.div`
+    font-size: 24px;
+    font-family: gyeonggi_bold;
+`;
+
+const InputStyle = styled.input`
+    width: 60%;
+    height: 30px;
+    font-size: 18px;
+    font-family: gyeonggi_bold;
+`;
+
+const RightBox = styled.div`
+    float: right;
+    margin-top: 10px;
+    margin-bottom: 10px;
+`;
+
+const MsgStyle = styled.div`
+    display: inline-block;
+    float: right;
+    width: 100%;
+    height: 30px;
+    text-align: right;
+    font-size: 18px;
+    font-family: gyeonggi_bold;
+`;
+
+const ButtonStyle = styled.button`
+    display: inline-block;
+    float: right;
+    width: 150px;
+    height: 28px;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-family: gyeonggi_bold;
+    margin-bottom: 15px;
 `;
