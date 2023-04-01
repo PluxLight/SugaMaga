@@ -41,7 +41,7 @@ function Home() {
         }}
         modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper"
-        style={{ width: '90%', height: '90vh', position: 'relative' }}
+        style={{ width: '100%', height: '90vh', position: 'relative' }}
       >
         <SwiperSlide>
           <ImageStyle src={img01} />
