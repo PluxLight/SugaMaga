@@ -87,7 +87,7 @@ function Login() {
                 onChange={emailChange} />
         </InputDivStyle>
         <InputDivStyle>
-          <InputTextStyle>패스워드</InputTextStyle>
+          <InputTextStyle>비밀번호</InputTextStyle>
           <InputStyle
                 type="password"
                 name="password"
