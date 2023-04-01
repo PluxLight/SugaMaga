@@ -154,7 +154,8 @@ const LogoutLink = styled.div`
   display: flex;
   align-items: center;
   color: black;
-  font-size: 20px;
+  font-size: 24px;
+  font-family: gyeonggi_bold;
   outline: invert;
   &:hover {
     transition: 0.5s;
@@ -167,7 +168,8 @@ const LogoutLink = styled.div`
 
 const NavBarStyle = styled(NavLink)`
     color: black;
-    font-size: 20px;
+    font-family: gyeonggi_bold;
+    font-size: 24px;
     outline: invert;
     &:link {
     transition: 0.5s;
