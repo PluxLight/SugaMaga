@@ -155,7 +155,7 @@ const LogoutLink = styled.div`
   align-items: center;
   color: black;
   font-size: 24px;
-  font-family: gyeonggi_bold;
+  font-family: gyeonggi_title_bold;
   outline: invert;
   &:hover {
     transition: 0.5s;
@@ -168,7 +168,7 @@ const LogoutLink = styled.div`
 
 const NavBarStyle = styled(NavLink)`
     color: black;
-    font-family: gyeonggi_bold;
+    font-family: gyeonggi_title_bold;
     font-size: 24px;
     outline: invert;
     &:link {

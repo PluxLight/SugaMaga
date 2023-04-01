@@ -49,7 +49,7 @@ const NaviBox = styled.div`
 `
 
 const HeaderStyle = styled.div`
-    font-family: gyeonggi_bold;
+    font-family: gyeonggi_title_bold;
     font-size: 26px;
     margin: 7px;
     marginLeft: 10px;
@@ -70,7 +70,7 @@ const HorizonLineStyle = styled.div`
 
 const LinkStyle = styled(NavLink)`
     color: black;
-    font-family: gyeonggi_bold;
+    font-family: gyeonggi_title_bold;
     font-size: 24px;
     outline: invert;
     &:link {
