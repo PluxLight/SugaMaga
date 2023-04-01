@@ -32,7 +32,7 @@ const Header = () => {
     (LoginUser == null ?
       [{ name: '게임소개', path: '/introduce' },
         { name: '다운로드', path: '/download' }]
-      : [{ name: '게임소개', path: '/introduce' },
+      : [{ name: '게임소개', path: '/introduce/intro' },
       { name: '게임기록', path: '/history' },
         { name: '다운로드', path: '/download' }]
     );
