@@ -18,7 +18,7 @@ export default PageHeader;
 
 const HeaderTextStyle = styled.div`
     font-size: 36px;
-    font-family: gyeonggi_bold;
+    font-family: gyeonggi_title_bold;
 `;
 
 const HorizonLineStyle = styled.div`
@@ -33,5 +33,5 @@ const SpanStyle = styled.span`
     background: white;
     padding: 0 10px;
     font-size: 16px;
-    font-family: gyeonggi_bold;
+    font-family: gyeonggi_title_bold;
 `;

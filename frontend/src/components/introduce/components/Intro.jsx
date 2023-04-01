@@ -85,7 +85,7 @@ const ImageStyle = styled.img`
 
 const TitleTextStyle = styled.div`
     font-size: 36px;
-    font-family: gyeonggi_bold;
+    font-family: gyeonggi_title_bold;
     margin-top: 50px;
 `;
 
@@ -93,6 +93,6 @@ const DetailTextStyle = styled.div`
     white-space: pre-wrap;
     margin-top: 30px;
     font-size: 21px;
-    font-family: gyeonggibatang_regular;
+    font-family: gyeonggi_batang_regular;
     line-height: 1.5;
 `
