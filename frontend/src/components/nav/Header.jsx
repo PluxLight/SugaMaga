@@ -10,6 +10,8 @@ import {
   signOut
 } from "../../firebase-config";
 
+import img01 from './../../image/img01.png'
+
 const Header = () => {
   const [login, setLogin] = useRecoilState(user);
   const [recoilUser, setRecoilUser] = useRecoilState(user);
@@ -28,11 +30,9 @@ const Header = () => {
 
   const menus1 = 
     (LoginUser == null ?
-      [{ name: 'Home', path: '/' },
-      { name: '게임소개', path: '/introduce' },
+      [{ name: '게임소개', path: '/introduce' },
         { name: '다운로드', path: '/download' }]
-      : [{ name: 'Home', path: '/' },
-      { name: '게임소개', path: '/introduce' },
+      : [{ name: '게임소개', path: '/introduce' },
       { name: '게임기록', path: '/history' },
         { name: '다운로드', path: '/download' }]
     );
@@ -62,6 +62,10 @@ const Header = () => {
         </NavBarStyle>
       );
   });
+
+  const ToHomePage = () => {
+    navigate('/');
+  }
 
   const SecondMenu = menus2.map((menu, index) => {
       return (
@@ -97,17 +101,21 @@ const Header = () => {
   
   return (
     <HeaderArea>
-      <Menu>{FirstMenu}</Menu>
+      <Menu>
+        <LogoStyle src={img01} onClick={ToHomePage} />
+        {FirstMenu}
+      </Menu>
       <Menu2>
-        {LoginUser != null ? <LogoutLink to={'/login'}
-        onClick={LogOutEvent}
-        size="24"
-        style={{ margin: '10px', marginLeft: '10px', cursor: 'pointer' }}>
-          로그아웃
-        </LogoutLink>
+        {LoginUser != null ?
+          <LogoutLink to={'/login'}
+            onClick={LogOutEvent}
+            size="24"
+            style={{ margin: '10px', marginLeft: '10px', cursor: 'pointer' }}>
+            로그아웃
+          </LogoutLink>
         : <></>}
-        
-        {SecondMenu}</Menu2>
+        {SecondMenu}
+      </Menu2>
     </HeaderArea>
   );
 
@@ -123,8 +131,16 @@ const HeaderArea = styled.div`
     justify-content: space-between;
 `;
 
+const LogoStyle = styled.img`
+  weight: 5wh;
+  height: 9vh;
+  cursor: pointer;
+`
+
 const Menu = styled.div`
   margin-left: 10px;
+  display: flex;
+  align-items: center;
 `;
 
 const Menu2 = styled.div`
