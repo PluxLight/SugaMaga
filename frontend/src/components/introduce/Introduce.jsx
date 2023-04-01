@@ -13,7 +13,6 @@ const Introduce = (match) => {
 
     return (
         <IntroStyle>
-            <PageHeader title="게임소개" horizonTitle="Introduce" />
 
             <ContensBox>
                 <SideNaviBox>
@@ -21,8 +20,9 @@ const Introduce = (match) => {
                 </SideNaviBox>
 
                 <DetailBox>
+                    <PageHeader title="게임소개" horizonTitle="Introduce" />
                     <Routes>
-                        <Route path="/" element={<Intro />}></Route>
+                        <Route path="intro" element={<Intro />}></Route>
                         <Route path="manual" element={<Manual />}></Route>
                         <Route path="artwork" element={<Artwork />}></Route>
                     </Routes>
@@ -51,9 +51,9 @@ const ContensBox = styled.div`
 `;
 
 const SideNaviBox = styled.div`
-    width: 20%;
+    width: 30%;
 `;
 
 const DetailBox = styled.div`
-    width: 80%;
+    width: 60%;
 `;

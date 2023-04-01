@@ -41,3 +41,13 @@
   font-family: "gyeonggi_bold";
   src: url("./fonts/gyeonggi_bold.ttf") format("truetype");
 }
+
+@font-face {
+  font-family: "gyeonggibatang_bold";
+  src: url("./fonts/gyeonggibatang_bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "gyeonggibatang_regular";
+  src: url("./fonts/gyeonggibatang_regular.ttf") format("truetype");
+}
