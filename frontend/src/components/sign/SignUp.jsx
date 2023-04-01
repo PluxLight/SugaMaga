@@ -257,14 +257,14 @@ const InfoDivStyle = styled.div`
 
 const InfoTextStyle = styled.div`
     font-size: 24px;
-    font-family: gyeonggi_bold;
+    font-family: gyeonggi_title_bold;
 `;
 
 const InputStyle = styled.input`
     width: 60%;
     height: 30px;
     font-size: 18px;
-    font-family: gyeonggi_bold;
+    font-family: gyeonggi_title_bold;
 `;
 
 const RightBox = styled.div`
@@ -280,7 +280,7 @@ const MsgStyle = styled.div`
     height: 30px;
     text-align: right;
     font-size: 18px;
-    font-family: gyeonggi_bold;
+    font-family: gyeonggi_title_bold;
 `;
 
 const ButtonStyle = styled.button`
@@ -291,6 +291,6 @@ const ButtonStyle = styled.button`
     align-items: center;
     justify-content: center;
     font-size: 22px;
-    font-family: gyeonggi_bold;
+    font-family: gyeonggi_title_bold;
     margin-bottom: 15px;
 `;

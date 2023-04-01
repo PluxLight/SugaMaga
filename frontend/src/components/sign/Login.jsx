@@ -132,7 +132,7 @@ const InputDivStyle = styled.div`
 
 const InputTextStyle = styled.div`
     font-size: 24px;
-    font-family: gyeonggi_bold;
+    font-family: gyeonggi_title_bold;
 `;
 
 const InputStyle = styled.input`
@@ -149,5 +149,5 @@ const LoginButton = styled.button`
     align-items: center;
     justify-content: center;
     font-size: 22px;
-    font-family: gyeonggi_bold;
+    font-family: gyeonggi_title_bold;
 `;
