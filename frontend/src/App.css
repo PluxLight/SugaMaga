@@ -37,17 +37,34 @@
   }
 }
 
+/* 경기천년제목 */
 @font-face {
-  font-family: "gyeonggi_bold";
-  src: url("./fonts/gyeonggi_bold.ttf") format("truetype");
+  font-family: "gyeonggi_title_bold";
+  src: url("./fonts/gyeonggi_title_bold.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: "gyeonggibatang_bold";
-  src: url("./fonts/gyeonggibatang_bold.ttf") format("truetype");
+  font-family: "gyeonggi_title_light";
+  src: url("./fonts/gyeonggi_title_light.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: "gyeonggibatang_regular";
-  src: url("./fonts/gyeonggibatang_regular.ttf") format("truetype");
+  font-family: "gyeonggi_title_medium";
+  src: url("./fonts/gyeonggi_title_medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "gyeonggi_title_v_bold";
+  src: url("./fonts/gyeonggi_title_v_bold.ttf") format("truetype");
+}
+
+/* 경기천년바탕 */
+@font-face {
+  font-family: "gyeonggi_batang_bold";
+  src: url("./fonts/gyeonggi_batang_bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "gyeonggi_batang_regular";
+  src: url("./fonts/gyeonggi_batang_regular.ttf") format("truetype");
 }
