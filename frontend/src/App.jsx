@@ -13,7 +13,9 @@ import Introduce from "./components/introduce/Introduce";
 import MyPage from "./components/mypage/MyPage";
 import Login from "./components/sign/Login";
 import SignUp from "./components/sign/SignUp";
-import SignUpSuccess from "./components/sign/SignUpSuccess"; 
+import SignUpSuccess from "./components/sign/SignUpSuccess";
+
+import img04 from "./image/img04.jpg";
 
 function App() {
   const router = useLocation();
@@ -61,4 +63,6 @@ const MainArea = styled.div`
   display: flex;
   justify-content: center;
   margin: 0;
+  background-image: url(${img04});
+  background-size: cover;
 `;

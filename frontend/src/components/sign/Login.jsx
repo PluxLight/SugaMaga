@@ -1,3 +1,5 @@
+import styled from 'styled-components';
+
 import { useNavigate } from 'react-router-dom';
 
 import React, { useEffect, useState } from "react";
@@ -8,6 +10,8 @@ import {
   firebaseAuth, signInWithEmailAndPassword,
   onAuthStateChanged
 } from "../../firebase-config";
+
+import PageHeader from '../../utils/PageHeader';
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -52,7 +56,7 @@ function Login() {
       console.log(err.code);
       setIsAppropriate(false);
       switch (err.code) {
-        case 'auth/user-not-found.':
+        case 'auth/user-not-found':
           setErrorMsg('존재하지 않는 유저입니다');
           break;
         case 'auth/wrong-password':
@@ -65,34 +69,85 @@ function Login() {
     }
   }
 
+  const activeEnter = (e) => {
+    if (e.key === "Enter") {
+      logInEvent(e);
+    }
+  }
+
   return (
-    <div className="Login">
-      <h1>Login</h1>
-      <div>
-        <form>
-          <label>
-            email:
-            <input
-              type="email"
-              name="email"
-              onChange={emailChange} />
-          </label>
-          <br />
-          <label>
-            password:
-            <input
-              type="password"
-              name="password"
-              onChange={passwordChange} />
-          </label>
-          <br />
-          <input type="button" value="Login" onClick={logInEvent} />
-        </form>
+    <LoginStyle>
+      <FormStyle>
+        <PageHeader title="로그인" horizonTitle="Login" />
+        <InputDivStyle>
+          <InputTextStyle>이메일</InputTextStyle>
+          <InputStyle
+                type="email"
+                name="email"
+                onChange={emailChange} />
+        </InputDivStyle>
+        <InputDivStyle>
+          <InputTextStyle>패스워드</InputTextStyle>
+          <InputStyle
+                type="password"
+                name="password"
+                onChange={passwordChange} 
+                onKeyDown={activeEnter}/>
+        </InputDivStyle>
+        <LoginButton  value="Login" onClick={logInEvent} >
+          로그인
+          </LoginButton>
+      </FormStyle>
+      <div>        
         <h3>{errorMsg}</h3>
       </div>
       <br />
-    </div>
+    </LoginStyle>
   );
 }
 
 export default Login;
+
+
+const LoginStyle = styled.div`    
+    width: 50%;
+    height: 80%;
+    margin-top: 20px;
+    background-color: white;
+`;
+
+const FormStyle = styled.div`
+    width: 70%;
+    margin-top: 5%;
+    margin-left: 15%;
+`;
+
+const InputDivStyle = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 5%;
+`;
+
+const InputTextStyle = styled.div`
+    font-size: 24px;
+    font-family: gyeonggi_bold;
+`;
+
+const InputStyle = styled.input`
+    width: 60%;
+    height: 30px;
+`;
+
+const LoginButton = styled.button`
+    display: flex;
+    float: right;
+    width: 35%;
+    height: 35%;
+    margin-top: 5%;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-family: gyeonggi_bold;
+`;
