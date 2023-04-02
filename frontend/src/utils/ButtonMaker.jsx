@@ -2,10 +2,10 @@ import React from "react";
 
 import styled from 'styled-components';
 
-const ButtonMaker = ({ text }) => {
+const ButtonMaker = ({ text, event, value }) => {
 
     return (
-        <ButtonStyle>
+        <ButtonStyle onClick={event} value={value}>
             {text}
         </ButtonStyle>
     );

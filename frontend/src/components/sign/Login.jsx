@@ -112,7 +112,7 @@ function Login() {
                 onChange={passwordChange} 
                 onKeyDown={activeEnter}/>
         </InputDivStyle>
-        <ButtonMaker value="Login" onClick={logInEvent} text="로그인" />
+        <ButtonMaker value="Login" event={logInEvent} text="로그인" />
       </FormStyle>
       <div>        
         <h3>{errorMsg}</h3>
