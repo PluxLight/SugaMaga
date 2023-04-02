@@ -14,6 +14,7 @@ import MyPage from "./components/mypage/MyPage";
 import Login from "./components/sign/Login";
 import SignUp from "./components/sign/SignUp";
 import SignUpSuccess from "./components/sign/SignUpSuccess";
+import Error from "./components/error/Error";
 
 import img04 from "./image/img04.jpg";
 
@@ -35,6 +36,7 @@ function App() {
           <Route path="/login" element={<Login />}></Route>
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/signupsuccess" element={<SignUpSuccess />}></Route>
+          <Route path="/*" element={<Error />}></Route>
         </Routes>
       </MainArea>
     </>
