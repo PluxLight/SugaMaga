@@ -4,7 +4,7 @@ import { useRecoilState } from 'recoil';
 import { user, nickname } from "../../Store";
 
 import PageHeader from "../../utils/PageHeader";
-import { getUserInfo, searchNickname, putUserNickname } from "../../api/sign";
+import { searchNickname, putUserNickname } from "../../api/sign";
 
 import { updatePassword } from "firebase/auth";
 import { firebaseAuth, onAuthStateChanged } from "../../firebase-config";
@@ -46,24 +46,6 @@ const MyPage = () => {
             clearTimeout(debounce);
         };
     }, [inputNickname]);
-    
-    useEffect(() => {
-        // console.log(recoilUser.uid);
-        let config = {
-            headers: {
-                uid: recoilUser.uid,
-            }
-        };
-        getUserInfo(config,
-            ({ data }) => {
-                // console.log(data);
-                setRecoilNickname(data);
-            },
-            (error) => {
-                console.log(error);
-            });
-        
-    }, []);
 
     useEffect(() => {
         onAuthStateChanged(firebaseAuth, fbUser => {
@@ -255,7 +237,7 @@ const InfoTextStyle = styled.div`
 `;
 
 const InfoDetailTextStyle = styled.div`
-    font-size: 18px;
+    font-size: 22px;
     font-family: gyeonggi_title_bold;
 `;
 
@@ -264,6 +246,7 @@ const InputStyle = styled.input`
     height: 30px;
     font-size: 18px;
     font-family: gyeonggi_title_bold;
+    padding-left: 10px;
 `;
 
 const RightBox = styled.div`
@@ -285,10 +268,13 @@ const MsgStyle = styled.div`
 const ButtonStyle = styled.button`
     display: inline-block;
     float: right;
-    width: 150px;
-    height: 28px;
+    width: 200px;
+    height: 35px;
     align-items: center;
     justify-content: center;
     font-size: 22px;
     font-family: gyeonggi_title_bold;
+    background-color: pink;
+    border: none;
+    cursor: pointer;
 `;
