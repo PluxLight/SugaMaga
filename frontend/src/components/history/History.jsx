@@ -63,7 +63,7 @@ export default History;
 
 const HistoryStyle = styled.div`    
     width: 70%;
-    height: 100%;
+    height: 90vh%;
     justify-content: center;
     background-color: white;
     padding: 1%;

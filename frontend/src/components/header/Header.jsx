@@ -133,7 +133,7 @@ const Header = () => {
 export default Header;
 
 const HeaderArea = styled.div`
-    height: 100%;
+    height: 10vh;
     display: flex;
     background: pink;
     align-items: center;
