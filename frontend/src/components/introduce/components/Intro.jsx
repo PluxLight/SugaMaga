@@ -93,12 +93,12 @@ const TitleTextStyle = styled.div`
 const TitleTextStyle2 = styled.div`
     font-size: 28px;
     font-family: gyeonggi_title_medium;
-    margin-top: 50px;
+    margin-top: 30px;
 `;
 
 const DetailTextStyle = styled.div`
     white-space: pre-wrap;
-    margin-top: 30px;
+    margin-top: 15px;
     font-size: 21px;
     font-family: gyeonggi_batang_regular;
     line-height: 1.5;
