@@ -138,16 +138,22 @@ const InputTextStyle = styled.div`
 const InputStyle = styled.input`
     width: 60%;
     height: 30px;
+    font-size: 18px;
+    font-family: gyeonggi_title_bold;
+    padding-left: 10px;
 `;
 
 const LoginButton = styled.button`
     display: flex;
     float: right;
     width: 35%;
-    height: 35%;
+    height: 40px;
     margin-top: 5%;
     align-items: center;
     justify-content: center;
     font-size: 22px;
     font-family: gyeonggi_title_bold;
+    background-color: pink;
+    border: none;
+    cursor: pointer;
 `;
