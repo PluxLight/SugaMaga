@@ -7,9 +7,9 @@ import Intro from "./components/Intro";
 import Manual from "./components/Manual";
 import Artwork from "./components/Artwork";
 import SideNavi from "./components/SideNavi";
+import Error from "../error/Error";
 
-const Introduce = (match) => {
-    const router = useLocation();
+const Introduce = () => {
 
     return (
         <IntroStyle>
@@ -25,6 +25,7 @@ const Introduce = (match) => {
                         <Route path="intro" element={<Intro />}></Route>
                         <Route path="manual" element={<Manual />}></Route>
                         <Route path="artwork" element={<Artwork />}></Route>
+                        <Route path="/*" element={<Error />}></Route>
                     </Routes>
                 </DetailBox>
 
