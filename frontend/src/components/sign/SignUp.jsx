@@ -10,6 +10,7 @@ import {
 
 import { signup, searchNickname } from "../../api/sign";
 import PageHeader from "../../utils/PageHeader";
+import ButtonMaker from "../../utils/ButtonMaker";
 
 function SignUp() {
   const [email, setEmail] = useState("");
@@ -228,7 +229,7 @@ function SignUp() {
         </InfoDivStyle>
         <RightBox>
           <MsgStyle>{msgNickname}</MsgStyle>
-          <ButtonStyle value="회원가입" onClick={signUpEvent} >회원가입</ButtonStyle>
+          <ButtonMaker value="회원가입" event={signUpEvent} text="회원가입" />
           <MsgStyle>{errorMsg}</MsgStyle>
         </RightBox>
 
@@ -289,19 +290,4 @@ const MsgStyle = styled.div`
     text-align: right;
     font-size: 18px;
     font-family: gyeonggi_title_bold;
-`;
-
-const ButtonStyle = styled.button`
-    display: inline-block;
-    float: right;
-    width: 250px;
-    height: 40px;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    font-family: gyeonggi_title_bold;
-    margin-bottom: 15px;
-    background-color: pink;
-    border: none;
-    cursor: pointer;
 `;

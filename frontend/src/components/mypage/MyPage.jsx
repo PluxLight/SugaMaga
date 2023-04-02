@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil';
 import { user, nickname } from "../../Store";
 
 import PageHeader from "../../utils/PageHeader";
+import ButtonMaker from "../../utils/ButtonMaker";
 import { searchNickname, putUserNickname } from "../../api/sign";
 
 import { updatePassword } from "firebase/auth";
@@ -172,9 +173,7 @@ const MyPage = () => {
                 </InfoDivStyle>
                 <RightBox>
                     <MsgStyle>{msgNickname}</MsgStyle>
-                    <ButtonStyle value="닉네임 변경" onClick={changeNicknameEvent} >
-                        닉네임 변경
-                    </ButtonStyle>
+                    <ButtonMaker value="닉네임 변경" event={changeNicknameEvent} text="닉네임 변경" />
                 </RightBox>
 
                 <InfoDivStyle>
@@ -197,10 +196,10 @@ const MyPage = () => {
                 </InfoDivStyle>
                 <RightBox>
                     <MsgStyle>{msgCheckPassword}</MsgStyle>
-                    <ButtonStyle value="비밀번호 변경" onClick={changePasswordEvent} >비밀번호 변경</ButtonStyle>
+                    <ButtonMaker value="비밀번호 변경" event={changePasswordEvent} text="비밀번호 변경" />
                 </RightBox>
                 
-                {errorMsg}
+                <MsgStyle>{errorMsg}</MsgStyle>
             </MyPageStyle>
         </BackPage>
         
