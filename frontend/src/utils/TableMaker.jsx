@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const TableMaker = ({ headers, rows }) => {
 
     return (
-        <table>
+        <TableStyle>
             <thead>
                 <tr>
                     {headers.map(header => (
@@ -24,13 +24,23 @@ const TableMaker = ({ headers, rows }) => {
                     </tr>
                 ))}
             </tbody>
-        </table>
+        </TableStyle>
     );
 };
 
 export default TableMaker;
 
+const TableStyle = styled.table`
+    width: 60%;
+    margin: 30px auto;
+    border: 3px solid;
+    border-radius: 16px;
+    border-color: pink;
+    background-color: pink;
+`
+
 const ThStyle = styled.th`
+    height: 50px;
     font-size: 34px;
     font-family: gyeonggi_title_bold;
     text-align: center;
@@ -46,4 +56,5 @@ const TdDetailStyle = styled.td`
     font-size: 22px;
     font-family: gyeonggi_title_medium;
     text-align: center;
+    background-color: white;
 `
