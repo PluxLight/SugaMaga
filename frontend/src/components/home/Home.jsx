@@ -19,19 +19,20 @@ import img04 from './../../image/img04.jpg'
 import img05 from './../../image/img05.png'
 
 function Home() {
+  const titleText = "최후의 1인이 되세요";
+  const detailText = "마녀의 손아귀에 끌려온 당신\n"
+    + "디저트로 둘러쌓인 곳에서\n"
+    + "과자로 된 무기를 들어 상대방을 무찌르고\n"
+    + "뻗쳐오는 마녀의 저주를 피해\n"
+    + "끝까지 살아남아 탈출하세요\n";
 
   return (
     <HomePageStyle>
-      <div>
-        <InfoTextBox>
-          <h2> &nbsp;최후의 1인이 되세요</h2>
-          <h3> &nbsp;마녀의 손아귀에 끌려온 당신 <br />
-          &nbsp;디저트로 둘러쌓인 곳에서 <br />
-          &nbsp;과자로 된 무기를 들어 상대방을 무찌르고 <br />
-          &nbsp;뻗쳐오는 마녀의 저주를 피해 <br />
-          &nbsp;끝까지 살아남아 탈출하세요 <br /> 
-          </h3>
-        </InfoTextBox>
+      <InfoTextBox>
+        <TitleTextStyle>{titleText}</TitleTextStyle>
+        <DetailTextStyle>{detailText}</DetailTextStyle>
+        
+      </InfoTextBox>
       <Swiper
         spaceBetween={30}
         centeredSlides={true}
@@ -59,8 +60,7 @@ function Home() {
           <ImageStyle src={img05} />
         </SwiperSlide>
 
-        </Swiper>
-      </div>
+      </Swiper>
       
     </HomePageStyle>
   );
@@ -74,19 +74,37 @@ const HomePageStyle = styled.div`
 `;
 
 const InfoTextBox = styled.div`
-  overflow: auto;
   width: 25%;
   height: 30%;
+  top: 50%;
+  left: 20%;
+  transform: translate(-50%, -50%);
   z-index: 3;
   position: absolute;
-  left: 100px;
-  top: 40%;
   background: rgba(0, 0, 0, 0.6);
   color: white;
+  overflow: auto;
   &::-webkit-scrollbar {
     display: none;
   }
 `;
+
+const TitleTextStyle = styled.div`
+  font-size: 42px;
+  font-family: gyeonggi_title_medium;
+  margin-top: 25px;
+  margin-bottom: 15px;
+  padding-left: 10px;
+`;
+
+const DetailTextStyle = styled.div`
+  font-size: 25px;
+  font-family: gyeonggi_title_v_bold;
+  margin-top: 15px;
+  padding-left: 10px;
+  white-space: pre-wrap;
+  line-height: 1.5;
+`
 
 const ImageStyle = styled.img`
   display: block;
