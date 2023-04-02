@@ -51,9 +51,9 @@ const ContensBox = styled.div`
 `;
 
 const SideNaviBox = styled.div`
-    width: 30%;
+    width: 20%;
 `;
 
 const DetailBox = styled.div`
-    width: 60%;
+    width: 70%;
 `;
