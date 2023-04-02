@@ -172,16 +172,26 @@ const ImageStyle = styled.img`
 
 const TableStyle = styled.table`
     margin: 30px auto;
+    width: 100%;
+    border: 3px solid;
+    border-radius: 16px;
+    border-color: pink;
+    background-color: pink;
 `
 
 const ThStyle = styled.th`
+    height: 38px;
     font-size: 34px;
     font-family: gyeonggi_title_bold;
     text-align: center;
+    background-color: pink;
 `
 
 const TdDetailStyle = styled.td`
+    height: 28px;
     font-size: 22px;
     font-family: gyeonggi_title_medium;
     text-align: center;
+    padding-top: 10px;
+    background-color: white;
 `
