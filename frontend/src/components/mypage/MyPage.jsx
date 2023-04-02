@@ -196,7 +196,7 @@ const MyPage = () => {
                 </InfoDivStyle>
                 <RightBox>
                     <MsgStyle>{msgCheckPassword}</MsgStyle>
-                    <ButtonMaker value="닉네임 변경" event={changePasswordEvent} text="비밀번호 변경" />
+                    <ButtonMaker value="비밀번호 변경" event={changePasswordEvent} text="비밀번호 변경" />
                 </RightBox>
                 
                 <MsgStyle>{errorMsg}</MsgStyle>
