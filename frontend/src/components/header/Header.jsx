@@ -14,10 +14,16 @@ import img01 from './../../image/img01.png'
 
 const Header = () => {
   const [login, setLogin] = useRecoilState(user);
-  const [recoilUser, setRecoilUser] = useRecoilState(user);
   const [recoilNickname, setRecoilNickname] = useRecoilState(nickname);
   
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.addEventListener('beforeunload', LogOut);
+    return () => {
+      window.removeEventListener('beforeunload', LogOut);
+    };
+  }, [])
 
   useEffect(() => {
     onAuthStateChanged(firebaseAuth, fbUser => {
@@ -85,19 +91,22 @@ const Header = () => {
         </NavBarStyle>
       );
   });
-  
-  const LogOutEvent = async () => {
-    navigate("/")
-    
-    const curUserInfo = await signOut(firebaseAuth)
+
+  const LogOut = async () => {
+    await signOut(firebaseAuth)
       .then(() => {
-        console.log("logout");
+        // console.log("logout");
         setRecoilNickname("");
       })
       .catch(e => {
         console.log("fail : " + e);
       });
-  }
+  };
+  
+  const LogOutEvent = async () => {
+    navigate("/")
+    LogOut();
+  };
   
   return (
     <HeaderArea>
