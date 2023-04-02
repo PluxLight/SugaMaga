@@ -272,6 +272,7 @@ const InputStyle = styled.input`
     height: 30px;
     font-size: 18px;
     font-family: gyeonggi_title_bold;
+    padding-left: 10px;
 `;
 
 const RightBox = styled.div`

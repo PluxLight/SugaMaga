@@ -246,6 +246,7 @@ const InputStyle = styled.input`
     height: 30px;
     font-size: 18px;
     font-family: gyeonggi_title_bold;
+    padding-left: 10px;
 `;
 
 const RightBox = styled.div`
@@ -267,10 +268,13 @@ const MsgStyle = styled.div`
 const ButtonStyle = styled.button`
     display: inline-block;
     float: right;
-    width: 150px;
-    height: 28px;
+    width: 200px;
+    height: 35px;
     align-items: center;
     justify-content: center;
     font-size: 22px;
     font-family: gyeonggi_title_bold;
+    background-color: pink;
+    border: none;
+    cursor: pointer;
 `;
