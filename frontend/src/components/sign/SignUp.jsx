@@ -178,6 +178,12 @@ function SignUp() {
     }
   }
 
+  const activeEnter = (e) => {
+    if (e.key === "Enter") {
+      signUpEvent(e);
+    }
+  }
+
   return (
     <SignUpStyle>
       <FormStyle>
@@ -217,7 +223,8 @@ function SignUp() {
             <InputStyle
                     type="text"
                     name="nickname"
-                    onChange={nicknameChange} />
+            onChange={nicknameChange}
+            onKeyDown={activeEnter} />
         </InfoDivStyle>
         <RightBox>
           <MsgStyle>{msgNickname}</MsgStyle>
@@ -265,6 +272,7 @@ const InputStyle = styled.input`
     height: 30px;
     font-size: 18px;
     font-family: gyeonggi_title_bold;
+    padding-left: 10px;
 `;
 
 const RightBox = styled.div`
@@ -286,11 +294,14 @@ const MsgStyle = styled.div`
 const ButtonStyle = styled.button`
     display: inline-block;
     float: right;
-    width: 150px;
-    height: 28px;
+    width: 250px;
+    height: 40px;
     align-items: center;
     justify-content: center;
     font-size: 22px;
     font-family: gyeonggi_title_bold;
     margin-bottom: 15px;
+    background-color: pink;
+    border: none;
+    cursor: pointer;
 `;
