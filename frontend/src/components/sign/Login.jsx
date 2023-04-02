@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from 'recoil';
-import { user } from "../../Store";
+import { user, nickname } from "../../Store";
 
 import {
   firebaseAuth, signInWithEmailAndPassword,
@@ -12,6 +12,7 @@ import {
 } from "../../firebase-config";
 
 import PageHeader from '../../utils/PageHeader';
+import { getUserInfo } from "../../api/sign";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -20,6 +21,8 @@ function Login() {
   const [isAppropriate, setIsAppropriate] = useState();
 
   const [login, setLogin] = useRecoilState(user);
+  
+  const [recoilNickname, setRecoilNickname] = useRecoilState(nickname);
 
   const navigate = useNavigate();
 
@@ -47,6 +50,20 @@ function Login() {
       //   setErrorMsg('이메일 인증이 완료되지 않았습니다.');
       //   return;
       // }
+
+      let config = {
+        headers: {
+            uid: curUserInfo.user.uid,
+        }
+      };
+      getUserInfo(config,
+          ({ data }) => {
+              // console.log(data);
+              setRecoilNickname(data);
+          },
+          (error) => {
+              console.log(error);
+      });
       
       console.log(curUserInfo);
       // setLogin(curUserInfo.user);
@@ -138,16 +155,22 @@ const InputTextStyle = styled.div`
 const InputStyle = styled.input`
     width: 60%;
     height: 30px;
+    font-size: 18px;
+    font-family: gyeonggi_title_bold;
+    padding-left: 10px;
 `;
 
 const LoginButton = styled.button`
     display: flex;
     float: right;
     width: 35%;
-    height: 35%;
+    height: 40px;
     margin-top: 5%;
     align-items: center;
     justify-content: center;
     font-size: 22px;
     font-family: gyeonggi_title_bold;
+    background-color: pink;
+    border: none;
+    cursor: pointer;
 `;
