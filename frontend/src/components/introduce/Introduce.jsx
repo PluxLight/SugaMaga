@@ -36,9 +36,9 @@ const Introduce = (match) => {
 
 export default Introduce;
 
-const IntroStyle = styled.div`    
+const IntroStyle = styled.div`
     width: 70%;
-    height: 100%;
+    height: 90vh%;
     justify-content: center;
     background-color: white;
     padding: 1%;
