@@ -32,6 +32,13 @@ public class FileController {
         logger.info("file path - " + path);
         logger.info("root path now - " + Paths.get("").toAbsolutePath());
 
+        File dir = new File(Paths.get("").toAbsolutePath() + "");
+
+        String[] filenames = dir.list();
+        for (String files : filenames) {
+            logger.info("filename : " + files);
+        }
+
         try {
             Path filePath = Paths.get(path);
             Resource resource = new InputStreamResource(Files.newInputStream(filePath)); // 파일 resource 얻기
