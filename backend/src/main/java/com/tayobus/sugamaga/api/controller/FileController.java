@@ -15,12 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/file")
@@ -29,20 +30,28 @@ public class FileController {
     private final Logger logger = LoggerFactory.getLogger(FileController.class);
 
     public FileController() {
-        File file = null;
+        try {
 
-        List<String> folderList = new ArrayList<>();
-        folderList.add("/images/");
-        folderList.add("/notice/");
+            // 1. 파일 객체 생성
+            File file = new File("writeFile.txt");
 
-        for (String folder : folderList) {
-            String filePath = fileDirectory + folder;
-            file = new File(filePath);
-            logger.info(file.toString());
-
+            // 2. 파일 존재여부 체크 및 생성
             if (!file.exists()) {
-                file.mkdirs();
+                file.createNewFile();
             }
+
+            // 3. Buffer를 사용해서 File에 write할 수 있는 BufferedWriter 생성
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter writer = new BufferedWriter(fw);
+
+            // 4. 파일에 쓰기
+            writer.write("jenkins location search");
+
+            // 5. BufferedWriter close
+            writer.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
