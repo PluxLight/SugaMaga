@@ -1,5 +1,5 @@
 FROM adoptopenjdk/openjdk11:latest
-WORKDIR /usr/app
+VOLUME /tmp
 EXPOSE 18081
 ARG JAR_FILE=build/libs/sugamaga-0.0.1-SNAPSHOT.jar
 
