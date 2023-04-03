@@ -1,10 +1,12 @@
 import styled from 'styled-components';
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import PageHeader from "../../utils/PageHeader";
 import TableMaker from "../../utils/TableMaker";
 
-import img01 from './../../image/img01.png'
+import axios from "axios";
+
+import logo from './../../image/img01.png'
 
 const Download = () => {
     const tableHeader = ['', '최소사양', '권장사양'];
@@ -113,14 +115,60 @@ const Download = () => {
         },
     ]
 
+    const downloadEvent = () => {    
+        axios({
+            method: 'GET',
+            url: `https://aeoragy.com/api/file/download?filename=launcher.exe`,
+            responseType: "blob",
+        }).then((response) => {
+            // console.log(response);
+    
+            // 다운로드(서버에서 전달 받은 데이터) 받은 바이너리 데이터를 blob으로 변환
+            const blob = new Blob([response.data]);
+    
+            // blob을 사용해 객체 URL을 생성
+            const fileObjectUrl = window.URL.createObjectURL(blob);
+    
+            // blob 객체 URL을 설정할 링크 생성
+            const link = document.createElement("a");
+            link.href = fileObjectUrl;
+            link.style.display = "none";
+            
+            // 다운로드 파일 이름을 추출하는 함수
+            const extractDownloadFilename = (response) => {
+                const disposition = response.headers["content-disposition"];
+                const fileName = decodeURI(
+                disposition
+                    .match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/)[1]
+                    .replace(/['"]/g, "")
+                );
+                return fileName;
+            };
+    
+            // 다운로드 파일 이름 지정
+            link.download = extractDownloadFilename(response);
+    
+            // 링크를 body에 추가하고 강제로 click 이벤트를 발생시켜 파일 다운로드를 실행
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+    
+            // 다운로드가 끝난 리소스(객체 URL)를 해제합니다.
+            window.URL.revokeObjectURL(fileObjectUrl);
+        })
+    }
+    
+
     return (
         <DownLoadStyle>
             <PageHeader title="다운로드" horizonTitle="Download" />
             <DownloadArea>
-                <DownloadButton>
-                    <LogoStyle src={img01} />
-                    게임 다운로드</DownloadButton>
+                <DownloadButton onClick={ downloadEvent } >
+                    <LogoStyle src={logo} />
+                    게임 다운로드
+                </DownloadButton>
             </DownloadArea>
+            
 
             <SpecArea>
                 <TableMaker headers={ tableHeader } rows={ tableRows }></TableMaker>
