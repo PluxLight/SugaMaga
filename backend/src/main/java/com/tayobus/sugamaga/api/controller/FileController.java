@@ -33,7 +33,7 @@ public class FileController {
         try {
 
             // 1. 파일 객체 생성
-            File file = new File("writeFile.txt");
+            File file = new File("release_file/writeFile.txt");
 
             // 2. 파일 존재여부 체크 및 생성
             if (!file.exists()) {
