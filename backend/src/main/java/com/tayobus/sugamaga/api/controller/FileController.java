@@ -28,11 +28,11 @@ public class FileController {
 
     @GetMapping("/download")
     public ResponseEntity<?> download(@RequestParam String filename) {
-        String path = Paths.get("").toAbsolutePath() + "release_file/" + filename;
+        String path = "release_file/" + filename;
         logger.info("file path - " + path);
         logger.info("root path now - " + Paths.get("").toAbsolutePath());
 
-        File dir = new File(Paths.get("").toAbsolutePath() + "release_file");
+        File dir = new File("release_file");
 
         String[] filenames = dir.list();
         for (String files : filenames) {
