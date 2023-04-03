@@ -42,9 +42,10 @@ export default SideMenu;
 
 const NaviBox = styled.div`
     background: pink;
-    width: 70%;
-    height: 20%;
+    width: 10vw;
+    height: 25vh;
     margin: 15% auto;
+    overflow: hidden;
 `
 
 const HeaderStyle = styled.div`

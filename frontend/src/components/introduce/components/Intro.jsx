@@ -74,6 +74,12 @@ const Intro = () => {
 export default Intro;
 
 const IntroStyle = styled.div`
+    height: 70vh;
+
+    overflow: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
 `
 
 const ImageStyle = styled.img`
@@ -84,22 +90,23 @@ const ImageStyle = styled.img`
 `;
 
 const TitleTextStyle = styled.div`
-    font-size: 32px;
+    font-size: 2.2vw;
     font-family: gyeonggi_title_medium;
-    margin-top: 25px;
+    margin-top: 1vh;
     margin-bottom: 15px;
 `;
 
 const TitleTextStyle2 = styled.div`
-    font-size: 28px;
+    font-size: 1.8vw;
     font-family: gyeonggi_title_medium;
-    margin-top: 30px;
+    margin-top: 2vh;
 `;
 
 const DetailTextStyle = styled.div`
+    height: 50%;
     white-space: pre-wrap;
-    margin-top: 15px;
-    font-size: 21px;
+    margin-top: 1.5vh;
+    font-size: 1.3vw;
     font-family: gyeonggi_batang_regular;
     line-height: 1.5;
 `

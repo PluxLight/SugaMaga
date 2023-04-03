@@ -57,4 +57,5 @@ const SideNaviBox = styled.div`
 
 const DetailBox = styled.div`
     width: 70%;
+    height: 100%;
 `;
