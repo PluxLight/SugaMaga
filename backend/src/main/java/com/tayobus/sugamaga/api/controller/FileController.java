@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
@@ -26,8 +27,10 @@ public class FileController {
     private final Logger logger = LoggerFactory.getLogger(FileController.class);
 
     @GetMapping("/download")
-    public ResponseEntity<?> download() {
-        String path = Paths.get("").toAbsolutePath() + "/release_file/newtextfile.txt";
+    public ResponseEntity<?> download(@RequestParam String filename) {
+        String path = Paths.get("").toAbsolutePath() + "/release_file/" + filename;
+        logger.info("file path - " + path);
+        logger.info("root path now - " + Paths.get("").toAbsolutePath());
 
         try {
             Path filePath = Paths.get(path);
