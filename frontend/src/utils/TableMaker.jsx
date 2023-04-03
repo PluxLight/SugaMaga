@@ -32,7 +32,7 @@ export default TableMaker;
 
 const TableStyle = styled.table`
     width: 60%;
-    margin: 30px auto;
+    margin: 0 auto;
     border: 3px solid;
     border-radius: 16px;
     border-color: pink;
@@ -40,20 +40,20 @@ const TableStyle = styled.table`
 `
 
 const ThStyle = styled.th`
-    height: 50px;
-    font-size: 34px;
+    height: 2.6vh;
+    font-size: 2.5vw;
     font-family: gyeonggi_title_bold;
     text-align: center;
 `
 
 const TdHeadStyle = styled.td`
-    font-size: 28px;
+    font-size: 1.8vw;
     font-family: gyeonggi_title_bold;
     text-align: center;
 `
 
 const TdDetailStyle = styled.td`
-    font-size: 22px;
+    font-size: 1.5vw;
     font-family: gyeonggi_title_medium;
     text-align: center;
     background-color: white;

@@ -157,19 +157,20 @@ const DownloadButton = styled.button`
     height: 100%;
     background-color: pink;
     border: none;
-    font-size: 40px;
+    font-size: 2.5vw;
     font-family: gyeonggi_title_v_bold;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto;
+    overflow: hidden;
 `
 
 const SpecArea = styled.div`
     width: 100%;
-    height: 40vh;
-    margin-top: 50px;
+    height: 40%;
+    margin-top: 4vh;
     display: flex;
     justify-content: center;
 `
