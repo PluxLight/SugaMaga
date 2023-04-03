@@ -29,45 +29,10 @@ import java.nio.file.Paths;
 public class FileController {
     private final Logger logger = LoggerFactory.getLogger(FileController.class);
 
-    public FileController() {
-        try {
-
-            // 1. 파일 객체 생성
-            File file = new File("release_file/writeFile.txt");
-
-            // 2. 파일 존재여부 체크 및 생성
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-
-            // 3. Buffer를 사용해서 File에 write할 수 있는 BufferedWriter 생성
-            FileWriter fw = new FileWriter(file);
-            BufferedWriter writer = new BufferedWriter(fw);
-
-            // 4. 파일에 쓰기
-            writer.write("jenkins location search");
-
-            // 5. BufferedWriter close
-            writer.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
     @GetMapping("/download")
     public ResponseEntity<?> download(@RequestParam String filename) {
         String path = "./release_file/" + filename;
         logger.info("file path - " + path);
-        logger.info("root path now - " + Paths.get("").toAbsolutePath());
-
-        File dir = new File("/");
-
-        String[] filenames = dir.list();
-        for (String files : filenames) {
-            logger.info("filename : " + files);
-        }
 
         try {
             Path filePath = Paths.get(path);
