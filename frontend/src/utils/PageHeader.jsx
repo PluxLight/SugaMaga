@@ -17,7 +17,7 @@ const PageHeader = ({ title, horizonTitle }) => {
 export default PageHeader;
 
 const HeaderTextStyle = styled.div`
-    font-size: 36px;
+    font-size: 2.5vw;
     font-family: gyeonggi_title_bold;
 `;
 
@@ -32,6 +32,6 @@ const HorizonLineStyle = styled.div`
 const SpanStyle = styled.span`
     background: white;
     padding: 0 10px;
-    font-size: 16px;
+    font-size: 1vw;
     font-family: gyeonggi_title_bold;
 `;
