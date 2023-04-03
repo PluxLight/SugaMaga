@@ -74,8 +74,8 @@ const HomePageStyle = styled.div`
 `;
 
 const InfoTextBox = styled.div`
-  width: 25%;
-  height: 30%;
+  width: 25vw;
+  height: 40vh;
   top: 50%;
   left: 20%;
   transform: translate(-50%, -50%);
@@ -90,20 +90,19 @@ const InfoTextBox = styled.div`
 `;
 
 const TitleTextStyle = styled.div`
-  font-size: 42px;
+  font-size: 3vw;
   font-family: gyeonggi_title_medium;
   margin-top: 25px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   padding-left: 10px;
 `;
 
 const DetailTextStyle = styled.div`
-  font-size: 25px;
+  font-size: 1.5vw;
   font-family: gyeonggi_title_v_bold;
-  margin-top: 15px;
   padding-left: 10px;
   white-space: pre-wrap;
-  line-height: 1.5;
+  line-height: 1.4;
 `
 
 const ImageStyle = styled.img`
