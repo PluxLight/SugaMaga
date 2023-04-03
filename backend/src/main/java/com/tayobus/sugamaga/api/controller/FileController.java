@@ -19,12 +19,33 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/file")
 @Api(tags = "파일 API")
 public class FileController {
     private final Logger logger = LoggerFactory.getLogger(FileController.class);
+
+    public FileController() {
+        File file = null;
+
+        List<String> folderList = new ArrayList<>();
+        folderList.add("/images/");
+        folderList.add("/notice/");
+
+        for (String folder : folderList) {
+            String filePath = fileDirectory + folder;
+            file = new File(filePath);
+            logger.info(file.toString());
+
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+        }
+
+    }
 
     @GetMapping("/download")
     public ResponseEntity<?> download(@RequestParam String filename) {
