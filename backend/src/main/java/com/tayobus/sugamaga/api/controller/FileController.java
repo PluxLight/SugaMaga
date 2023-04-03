@@ -32,7 +32,7 @@ public class FileController {
         logger.info("file path - " + path);
         logger.info("root path now - " + Paths.get("").toAbsolutePath());
 
-        File dir = new File("./release_file");
+        File dir = new File("/");
 
         String[] filenames = dir.list();
         for (String files : filenames) {
