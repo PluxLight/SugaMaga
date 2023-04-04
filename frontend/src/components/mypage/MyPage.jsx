@@ -26,7 +26,7 @@ const MyPage = () => {
     
     const [errorMsg, setErrorMsg] = useState("　");
     
-    const regexNickname = /^[A-Za-z0-9가-힣]{2,16}$/;
+    const regexNickname = /^[A-Za-z0-9]{2,16}$/;
     const regexPassword =
         /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{6,25}$/;
     
@@ -38,7 +38,7 @@ const MyPage = () => {
                 }
                 else {
                     setMsgNickname(`닉네임 조건은 2~16자입니다.
-                    공백과 특수문자를 허용하지 않습니다.`);
+                    영문과 숫자만을 허용합니다.`);
                     setNicknameOk(false);
                 }
             }
