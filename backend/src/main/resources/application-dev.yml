@@ -1,9 +1,0 @@
-spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: d211
-    password: s08p!@d211
-    url: jdbc:mysql://aeoragy.com:3306/d211?characterEncoding=UTF-8&serverTimezone=UTC&autoReconnect=true
-    dbcp:
-      testOnBorrow: 'true'
-      validationQuery: SELECT 1
