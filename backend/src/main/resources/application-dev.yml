@@ -7,6 +7,3 @@ spring:
     dbcp:
       testOnBorrow: 'true'
       validationQuery: SELECT 1
-
-key:
-  firebase: AIzaSyAbrcuxBD_VyzQDSlAJfxPUZOfsx8wfNy0
