@@ -71,7 +71,7 @@ SugaMaga(이하 슈가마가)는 기존 배틀로얄 장르의 유사점을 극�
 ---
 ### 전은수
 - 팀장
-- 플레이어
+- 플레이어 (조작, 물리)
 
 ### 김학철
 - 게임서버
@@ -110,4 +110,45 @@ SugaMaga(이하 슈가마가)는 기존 배틀로얄 장르의 유사점을 극�
 
 ## 서비스 화면 (웹)
 ---
+### 홈페이지
+웹페이지의 홈 화면입니다.  
+게임을 이용하기 위한 회원가입, 로그인, 정보수정이 가능합니다.  
+그리고 게임 소개 내용을 보거나 게임 런처를 다운로드 할 수 있습니다.<br><br>
+![web_home](./images/web_home.png)
+<br><br>
 
+### 회원가입
+회원가입을 진행합니다.  
+회원가입 요청이 성공한다면 이메일을 확인 요청 안내페이지가 발생합니다.
+![web_signup](./images/web_signup.png)
+![web_signupsuccess](./images/web_signupsuccess.png)
+<br><br>
+
+### 로그인
+로그인 화면입니다.
+![web_](./images/web_login.png)
+<br><br>
+
+### 나의정보
+로그인한 유저 정보를 확인할 수 있습니다.  
+닉네임 및 비밀번호 수정이 가능합니다.
+![web_myinfo](./images/web_myinfo.png)
+<br><br>
+
+### 게임소개
+  1. 설명  
+    게임의 이미지와 배경을 확인할 수 있습니다.
+    ![web_](./images/web_intro.png)
+    <br><br>
+  2. 조작법  
+     게임의 조작방법을 확인할 수 있습니다.
+    ![web_](./images/web_manual.png)
+    <br><br>
+  3. 아트워크  
+     게임에서 사용된 그림 및 사진을 확인할 수 있습니다.
+    ![web_](./images/web_artwork.png)
+<br><br>
+
+### 다운로드
+게임실행에 필요한 게임런처 파일을 다운로드 할 수 있습니다.
+![web_](./images/web_download.png)
