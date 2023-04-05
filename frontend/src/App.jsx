@@ -16,10 +16,7 @@ import SignUp from "./components/sign/SignUp";
 import SignUpSuccess from "./components/sign/SignUpSuccess";
 import Error from "./components/error/Error";
 
-import backimage from "./image/town.png";
-
 function App() {
-  const router = useLocation();
 
   return (
     <>
@@ -56,6 +53,6 @@ const MainArea = styled.div`
   display: flex;
   justify-content: center;
   margin: 0;
-  background-image: url(${backimage});
+  background-image: url("https://aeoragy.com/api/file/images/back.png");
   background-size: cover;
 `;

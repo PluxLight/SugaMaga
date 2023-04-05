@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-
-import React from 'react';
+import React, { useEffect, useState } from "react";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -12,19 +11,42 @@ import 'swiper/css/navigation';
 // import required modules
 import { Autoplay, Pagination, Navigation } from 'swiper';
 
-import logo from './../../image/logo_back_exist.png'
-import town from './../../image/town.png'
-import lake from './../../image/lake.png'
-import snow from './../../image/snow2.png'
-import bad from './../../image/badlands.png'
+import { getImageList } from '../../api/file'
 
 function Home() {
+  const [images, setImages] = useState([]);
+
   const titleText = "최후의 1인이 되세요";
   const detailText = "마녀의 손아귀에 끌려온 당신\n"
     + "디저트로 둘러쌓인 곳에서\n"
     + "과자로 된 무기를 들어 상대방을 무찌르고\n"
     + "뻗쳐오는 마녀의 저주를 피해\n"
     + "끝까지 살아남아 탈출하세요\n";
+  
+  const param = "home";
+  
+  useEffect(() => {
+    let params = {
+      imagesKey: param
+    };
+
+    getImageList(params,
+      ({ data }) => {
+        setImages(data);
+      },
+      (error) => {
+        console.log(error);
+        }
+    )
+    }, [])
+
+  const slideImages = images.map((image) => {
+        return (
+          <SwiperSlide key={image.imagesIdx}>
+            <ImageStyle src={`https://aeoragy.com/api/file/images/${image.imagesName}`} />
+          </SwiperSlide>
+        );
+    });
 
   return (
     <HomePageStyle>
@@ -44,21 +66,7 @@ function Home() {
         className="mySwiper"
         style={{ width: '100%', height: '90vh', position: 'relative' }}
       >
-        <SwiperSlide>
-          <ImageStyle src={logo} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <ImageStyle src={town} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <ImageStyle src={snow} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <ImageStyle src={lake} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <ImageStyle src={bad} />
-        </SwiperSlide>
+        {slideImages}
 
       </Swiper>
       
