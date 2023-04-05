@@ -116,7 +116,7 @@ const Download = () => {
     const downloadEvent = () => {    
         axios({
             method: 'GET',
-            url: `https://aeoragy.com/api/file/download?filename=Launcher.exe`,
+            url: `https://aeoragy.com/api/file/download?fileName=Launcher.exe`,
             responseType: "blob",
         }).then((response) => {
             // console.log(response);
