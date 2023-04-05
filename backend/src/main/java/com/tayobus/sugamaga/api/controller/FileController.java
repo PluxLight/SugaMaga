@@ -1,12 +1,15 @@
 package com.tayobus.sugamaga.api.controller;
 
 
+import com.tayobus.sugamaga.api.service.FileService;
+import com.tayobus.sugamaga.db.entity.Images;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.*;
@@ -20,6 +23,7 @@ import java.io.FileOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -27,6 +31,13 @@ import java.util.List;
 @Api(tags = "파일 API")
 public class FileController {
     private final Logger logger = LoggerFactory.getLogger(FileController.class);
+
+    private final FileService fileService;
+
+    @Autowired
+    public FileController(FileService fileService) {
+        this.fileService = fileService;
+    }
 
     @Operation(summary = "이미지 확인 및 다운로드", description = "서버에 올라온 이미지 확인 or 다운로드 "
             + " \n img src 태그에 값을 넣어서 확인바랍니다")
@@ -70,6 +81,27 @@ public class FileController {
 
         return new ResponseEntity<String>(oriFileName, HttpStatus.OK);
     }
+
+    @Operation(summary = "이미지 파일 리스트 조회", description = "찾을 이미지 리스트의 Key 입력")
+    @GetMapping(value="/images", consumes = "multipart/form-data")
+    public ResponseEntity<?> getImageList(@RequestParam String imagesKey) {
+        logger.info("get images List");
+
+        try {
+            List<Images> imagesList = new ArrayList<>();
+            imagesList = fileService.getImagesList(imagesKey);
+
+            logger.info(imagesList.toString());
+
+            return new ResponseEntity<>(imagesList, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.info(e.toString());
+
+            return new ResponseEntity<>("Fail", HttpStatus.BAD_REQUEST);
+        }
+    }
+    
+    
 
     @GetMapping("/download")
     public ResponseEntity<?> download(@RequestParam String fileName) {
