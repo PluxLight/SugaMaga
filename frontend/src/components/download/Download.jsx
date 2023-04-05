@@ -6,8 +6,6 @@ import TableMaker from "../../utils/TableMaker";
 
 import axios from "axios";
 
-import logo from './../../image/logo.png'
-
 const Download = () => {
     const tableHeader = ['', '최소사양', '권장사양'];
     const tableRows = [
@@ -164,7 +162,7 @@ const Download = () => {
             <PageHeader title="다운로드" horizonTitle="Download" />
             <DownloadArea>
                 <DownloadButton onClick={ downloadEvent } >
-                    <LogoStyle src={logo} />
+                    <LogoStyle src="https://aeoragy.com/api/file/images/logo.png" />
                     게임 다운로드
                 </DownloadButton>
             </DownloadArea>
