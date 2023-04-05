@@ -8,7 +8,8 @@ server:
       force: true
 
     multipart:
-      max-file-size: 10MB
+      file-size-threshold: 10MB
+      max-file-size: 100MB
       max-request-size: 100MB
       enabled: true
 
