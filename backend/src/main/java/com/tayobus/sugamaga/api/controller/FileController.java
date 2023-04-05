@@ -83,7 +83,7 @@ public class FileController {
     }
 
     @Operation(summary = "이미지 파일 리스트 조회", description = "찾을 이미지 리스트의 Key 입력")
-    @GetMapping(value="/images", consumes = "multipart/form-data")
+    @GetMapping(value="/images")
     public ResponseEntity<?> getImageList(@RequestParam String imagesKey) {
         logger.info("get images List");
 
