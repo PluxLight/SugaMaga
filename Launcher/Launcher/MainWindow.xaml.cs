@@ -26,8 +26,11 @@ namespace Launcher
         private string gameZip;
         private string gameExe;
 
-        private string versionFileLink = "https://aeoragy.com/api/file/download?filename=version.txt";
-        private string buildFileLink = "https://aeoragy.com/api/file/download?filename=Build.zip";
+        private static string folderName = "Tayobus";
+        private static string exeName = "SugaMaga.exe";
+
+        private string versionFileLink = "https://aeoragy.com/api/file/download?fileName=version.txt";
+        private string buildFileLink = "https://aeoragy.com/api/file/download?fileName=" + folderName + ".zip";
 
         private LauncherStatus _status;
         internal LauncherStatus Status
@@ -62,8 +65,8 @@ namespace Launcher
 
             rootPath = Directory.GetCurrentDirectory();
             versionFile = Path.Combine(rootPath, "Version.txt");
-            gameZip = Path.Combine(rootPath, "Build.zip");
-            gameExe = Path.Combine(rootPath, "Build", "TAYOBUS.exe");
+            gameZip = Path.Combine(rootPath, folderName + ".zip");
+            gameExe = Path.Combine(rootPath, folderName, exeName);
         }
 
         private void CheckForUpdates()
@@ -154,7 +157,7 @@ namespace Launcher
             if (File.Exists(gameExe) && Status == LauncherStatus.ready)
             {
                 ProcessStartInfo startInfo = new ProcessStartInfo(gameExe);
-                startInfo.WorkingDirectory = Path.Combine(rootPath, "Build");
+                startInfo.WorkingDirectory = Path.Combine(rootPath, folderName);
                 Process.Start(startInfo);
 
                 Close();
