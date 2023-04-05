@@ -10,8 +10,6 @@ import {
   signOut
 } from "../../firebase-config";
 
-import img01 from './../../image/logo.png'
-
 const Header = () => {
   const [login, setLogin] = useRecoilState(user);
   const [recoilNickname, setRecoilNickname] = useRecoilState(nickname);
@@ -111,7 +109,7 @@ const Header = () => {
   return (
     <HeaderArea>
       <Menu>
-        <LogoStyle src={img01} onClick={ToHomePage} />
+        <LogoStyle src="https://aeoragy.com/api/file/images/logo.png" onClick={ToHomePage} />
         {FirstMenu}
       </Menu>
       <Menu2>

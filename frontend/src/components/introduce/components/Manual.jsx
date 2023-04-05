@@ -1,8 +1,5 @@
 import styled from 'styled-components';
 
-import img03 from './../../../image/img03.png'
-import keyboardImg from './../../../image/Keyboard_for_Manual_small.png'
-
 const Manual = () => {
     const tableHeader = [
         { key: 0, render: '기능' },
@@ -121,8 +118,8 @@ const Manual = () => {
     return (
         <ManualStyle>
             <TitleTextStyle>조작법</TitleTextStyle>
-            <ImageStyle src={ img03 }></ImageStyle>
-            <ImageStyle src={keyboardImg}></ImageStyle>
+            <ImageStyle src="https://aeoragy.com/api/file/images/manual.png"></ImageStyle>
+            <ImageStyle src="https://aeoragy.com/api/file/images/keyboard.png"></ImageStyle>
             <TableStyle>
                 <thead>
                     <tr>
