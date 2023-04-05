@@ -6,7 +6,7 @@ import TableMaker from "../../utils/TableMaker";
 
 import axios from "axios";
 
-import logo from './../../image/img01.png'
+import logo from './../../image/logo.png'
 
 const Download = () => {
     const tableHeader = ['', '최소사양', '권장사양'];

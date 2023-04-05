@@ -12,11 +12,11 @@ import 'swiper/css/navigation';
 // import required modules
 import { Autoplay, Pagination, Navigation } from 'swiper';
 
-import img01 from './../../image/img01.png'
-import img02 from './../../image/img02.jpeg'
-import img03 from './../../image/img03.png'
-import img04 from './../../image/img04.jpg'
-import img05 from './../../image/img05.png'
+import logo from './../../image/logo_back_exist.png'
+import town from './../../image/town.png'
+import lake from './../../image/lake.png'
+import snow from './../../image/snow2.png'
+import bad from './../../image/badlands.png'
 
 function Home() {
   const titleText = "최후의 1인이 되세요";
@@ -45,19 +45,19 @@ function Home() {
         style={{ width: '100%', height: '90vh', position: 'relative' }}
       >
         <SwiperSlide>
-          <ImageStyle src={img01} />
+          <ImageStyle src={logo} />
         </SwiperSlide>
         <SwiperSlide>
-          <ImageStyle src={img02} />
+          <ImageStyle src={town} />
         </SwiperSlide>
         <SwiperSlide>
-          <ImageStyle src={img03} />
+          <ImageStyle src={snow} />
         </SwiperSlide>
         <SwiperSlide>
-          <ImageStyle src={img04} />
+          <ImageStyle src={lake} />
         </SwiperSlide>
         <SwiperSlide>
-          <ImageStyle src={img05} />
+          <ImageStyle src={bad} />
         </SwiperSlide>
 
       </Swiper>
