@@ -17,9 +17,9 @@ const Header = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    window.addEventListener('beforeunload', LogOut);
+    window.addEventListener('onbeforeunload', LogOut);
     return () => {
-      window.removeEventListener('beforeunload', LogOut);
+      window.removeEventListener('onbeforeunload', LogOut);
     };
   }, [])
 
