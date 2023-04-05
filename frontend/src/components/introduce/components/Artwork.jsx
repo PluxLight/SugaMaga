@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import React, { useEffect, useState } from "react";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -10,18 +11,32 @@ import 'swiper/css/navigation';
 // import required modules
 import { Autoplay, Pagination, Navigation } from 'swiper';
 
-import logo from './../../../image/logo.png'
-import concept from './../../../image/concept.jpeg'
-import snow from './../../../image/snow2.png'
-import bad from './../../../image/badlands.png'
+import { getImageList } from '../../../api/file'
 
 const Artwork = () => {
-    const images = [logo, concept, snow, bad];
+    const [images, setImages] = useState([]);
+    
+    const param = "artwork";
+        
+    useEffect(() => {
+        let params = {
+            imagesKey: param
+        };
+
+        getImageList(params,
+        ({ data }) => {
+            setImages(data);
+        },
+        (error) => {
+            console.log(error);
+            }
+        )
+        }, [])
 
     const slideImages = images.map((image) => {
         return (
-            <SwiperSlide>
-                <ImageStyle src={image} />
+            <SwiperSlide key={image.imagesIdx}>
+            <ImageStyle src={`https://aeoragy.com/api/file/images/${image.imagesName}`} />
             </SwiperSlide>
         );
     });

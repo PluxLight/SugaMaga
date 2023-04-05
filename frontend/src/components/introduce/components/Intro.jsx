@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import logo from './../../../image/logo.png'
-
 const Intro = () => {
 
     const detailText =
@@ -22,7 +20,7 @@ const Intro = () => {
     return (
         <IntroStyle>
             <TitleTextStyle>설명</TitleTextStyle>
-            <ImageStyle src={logo} />
+            <ImageStyle src="https://aeoragy.com/api/file/images/logo.png" />
 
             
             <TitleTextStyle2>소개글</TitleTextStyle2>
