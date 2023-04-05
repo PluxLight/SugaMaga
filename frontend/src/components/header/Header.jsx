@@ -10,7 +10,7 @@ import {
   signOut
 } from "../../firebase-config";
 
-import img01 from './../../image/img01.png'
+import img01 from './../../image/logo.png'
 
 const Header = () => {
   const [login, setLogin] = useRecoilState(user);

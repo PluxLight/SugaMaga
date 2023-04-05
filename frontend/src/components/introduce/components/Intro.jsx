@@ -1,19 +1,6 @@
 import styled from 'styled-components';
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-
-// import required modules
-import { Autoplay, Pagination, Navigation } from 'swiper';
-
-import img01 from './../../../image/img01.png'
-import img02 from './../../../image/img02.jpeg'
-import img03 from './../../../image/img03.png'
-import img04 from './../../../image/img04.jpg'
+import logo from './../../../image/logo.png'
 
 const Intro = () => {
 
@@ -35,31 +22,7 @@ const Intro = () => {
     return (
         <IntroStyle>
             <TitleTextStyle>설명</TitleTextStyle>
-            <Swiper
-                modules={[Autoplay, Pagination, Navigation]}
-                spaceBetween={30}
-                centeredSlides={true}
-                autoplay={{
-                delay: 2000,
-                disableOnInteraction: false,
-                }}
-                className="mySwiper"
-                style={{ width: '80%', height: '30vh',  position: 'relative', border: '0.5px solid #aaa' }}
-            >
-                <SwiperSlide>
-                <ImageStyle src={img01} />
-                </SwiperSlide>
-                <SwiperSlide>
-                <ImageStyle src={img02} />
-                </SwiperSlide>
-                <SwiperSlide>
-                <ImageStyle src={img03} />
-                </SwiperSlide>
-                <SwiperSlide>
-                <ImageStyle src={img04} />
-                </SwiperSlide>
-
-            </Swiper>
+            <ImageStyle src={logo} />
 
             
             <TitleTextStyle2>소개글</TitleTextStyle2>
@@ -84,9 +47,9 @@ const IntroStyle = styled.div`
 
 const ImageStyle = styled.img`
     display: block;
-    width: 100%;
-    height: 100%;
+    width: 80%;
     object-fit: cover;
+    margin: 0 auto;
 `;
 
 const TitleTextStyle = styled.div`

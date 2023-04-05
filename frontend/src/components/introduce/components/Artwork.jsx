@@ -10,12 +10,21 @@ import 'swiper/css/navigation';
 // import required modules
 import { Autoplay, Pagination, Navigation } from 'swiper';
 
-import img01 from './../../../image/img01.png'
-import img02 from './../../../image/img02.jpeg'
-import img03 from './../../../image/img03.png'
-import img04 from './../../../image/img04.jpg'
+import logo from './../../../image/logo.png'
+import concept from './../../../image/concept.jpeg'
+import snow from './../../../image/snow2.png'
+import bad from './../../../image/badlands.png'
 
 const Artwork = () => {
+    const images = [logo, concept, snow, bad];
+
+    const slideImages = images.map((image) => {
+        return (
+            <SwiperSlide>
+                <ImageStyle src={image} />
+            </SwiperSlide>
+        );
+    });
 
     return (
         <ArtworkStyle>
@@ -29,20 +38,9 @@ const Artwork = () => {
                 disableOnInteraction: false,
                 }}
                 className="mySwiper"
-                style={{ width: '100%', height: '100%',  position: 'relative', border: '0.5px solid #aaa' }}
+                style={{ width: '100%', height: '100%',  position: 'relative', margin: '0 auto' }}
             >
-                <SwiperSlide>
-                <ImageStyle src={img01} />
-                </SwiperSlide>
-                <SwiperSlide>
-                <ImageStyle src={img02} />
-                </SwiperSlide>
-                <SwiperSlide>
-                <ImageStyle src={img03} />
-                </SwiperSlide>
-                <SwiperSlide>
-                <ImageStyle src={img04} />
-                </SwiperSlide>
+                {slideImages}
 
             </Swiper>
         </ArtworkStyle>
