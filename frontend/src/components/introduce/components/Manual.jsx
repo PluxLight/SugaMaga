@@ -63,11 +63,11 @@ const Manual = () => {
                 },
                 {
                     key: 2,
-                    render: '아이템 버리기'
+                    render: '회피'
                 },
                 {
                     key: 3,
-                    render: 'A'
+                    render: '움직이면서 + Shift'
                 },
             ]
         },
@@ -76,19 +76,19 @@ const Manual = () => {
             columns: [
                 {
                     key: 0,
-                    render: '임시 값'
+                    render: '회복 아이템 사용'
                 },
                 {
                     key: 1,
-                    render: '임시 값'
+                    render: 'Z, C'
                 },
                 {
                     key: 2,
-                    render: '임시 값'
+                    render: '아이템 전환'
                 },
                 {
                     key: 3,
-                    render: '임시 값'
+                    render: '1, 2, 3, 4, 5'
                 },
             ]
         },
@@ -97,19 +97,19 @@ const Manual = () => {
             columns: [
                 {
                     key: 0,
-                    render: '임시 값'
+                    render: '설정 창'
                 },
                 {
                     key: 1,
-                    render: '임시 값'
+                    render: 'F1'
                 },
                 {
                     key: 2,
-                    render: '임시 값'
+                    render: ''
                 },
                 {
                     key: 3,
-                    render: '임시 값'
+                    render: ''
                 },
             ]
         },
