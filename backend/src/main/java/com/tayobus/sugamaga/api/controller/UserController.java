@@ -50,7 +50,7 @@ public class UserController {
 
             return new ResponseEntity<>(Nickname, HttpStatus.OK);
         } catch (Exception e) {
-            logger.info(e.toString());
+            logger.info("get nickname error - " + e.getMessage(), e);
 
             return new ResponseEntity<>("Fail", HttpStatus.BAD_REQUEST);
         }
@@ -77,7 +77,7 @@ public class UserController {
                 return new ResponseEntity<>(FAIL, HttpStatus.NOT_FOUND);
             }
         } catch (Exception e) {
-            logger.info(e.toString());
+            logger.info("put nickname error - " + e.getMessage(), e);
 
             return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
         }
@@ -98,7 +98,7 @@ public class UserController {
                 return new ResponseEntity<>(FAIL, HttpStatus.FORBIDDEN);
             }
         } catch (Exception e) {
-            logger.info(e.toString());
+            logger.info("search nickname error - " + e.getMessage(), e);
             // 400
             return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
         }
@@ -121,7 +121,7 @@ public class UserController {
 
             return new ResponseEntity<>(userCustom, HttpStatus.OK);
         } catch (Exception e) {
-            logger.info(e.toString());
+            logger.info("get custom error - " + e.getMessage(), e);
 
             return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
         }
@@ -146,7 +146,7 @@ public class UserController {
 
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
         } catch (Exception e) {
-            logger.info(e.toString());
+            logger.info("put custom error - " + e.getMessage(), e);
 
             return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
         }
