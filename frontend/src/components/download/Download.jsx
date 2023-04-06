@@ -1,10 +1,12 @@
 import styled from 'styled-components';
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import PageHeader from "../../utils/PageHeader";
 import TableMaker from "../../utils/TableMaker";
 
 import axios from "axios";
+
+import { getImageList } from '../../api/file'
 
 const Download = () => {
     const tableHeader = ['', '최소사양', '권장사양'];
@@ -113,6 +115,25 @@ const Download = () => {
         },
     ]
 
+    const [images, setImages] = useState("");
+    
+    const param = "download";
+        
+    useEffect(() => {
+        let params = {
+            imagesKey: param
+        };
+
+        getImageList(params,
+            ({ data }) => {
+            setImages(data[0].imagesName);
+        },
+        (error) => {
+            console.log(error);
+            }
+        )
+        }, [])
+
     const downloadEvent = () => {    
         axios({
             method: 'GET',
@@ -162,8 +183,8 @@ const Download = () => {
             <PageHeader title="다운로드" horizonTitle="Download" />
             <DownloadArea>
                 <DownloadButton onClick={ downloadEvent } >
-                    <LogoStyle src="https://aeoragy.com/api/file/images/logo.png" />
-                    게임 다운로드
+                    <LogoStyle src={`https://aeoragy.com/api/file/images/` + images} />
+                    게임런처 다운로드
                 </DownloadButton>
             </DownloadArea>
             
@@ -194,7 +215,8 @@ const DownloadArea = styled.div`
 `
 
 const LogoStyle = styled.img`
-    height: 100%;
+    height: 90%;
+    margin: 0 auto;
 `
 
 
