@@ -48,6 +48,8 @@ public class SignController {
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
         else {
+            logger.info("signup fail");
+
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
