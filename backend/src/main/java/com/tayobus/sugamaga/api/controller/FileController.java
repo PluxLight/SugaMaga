@@ -48,10 +48,20 @@ public class FileController {
 
         InputStreamResource inputStreamResource = new InputStreamResource(new FileInputStream(path));
 
-        return ResponseEntity
-                .ok()
-                .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .body(inputStreamResource);
+        try {
+            return ResponseEntity
+                    .ok()
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .body(inputStreamResource);
+        } catch (Exception e) {
+            logger.info("get image file error - " + e.getMessage(), e);
+
+            return ResponseEntity
+                    .badRequest()
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(null);
+        }
+
     }
 
     @Operation(summary = "이미지 파일 업로드", description = "이미지 파일을 서버에 업로드")
@@ -73,7 +83,7 @@ public class FileController {
             try (FileOutputStream writer = new FileOutputStream(filePath)) {
                 writer.write(multipartFile.getBytes());
             } catch (Exception e) {
-                logger.info(e.getMessage(), e);
+                logger.info("upload image files error - " + e.getMessage(), e);
 
                 return new ResponseEntity<String>("FAIL", HttpStatus.INTERNAL_SERVER_ERROR);
             }
@@ -95,7 +105,7 @@ public class FileController {
 
             return new ResponseEntity<>(imagesList, HttpStatus.OK);
         } catch (Exception e) {
-            logger.info(e.toString());
+            logger.info("get image list error - " + e.getMessage(), e);
 
             return new ResponseEntity<>("Fail", HttpStatus.BAD_REQUEST);
         }
@@ -126,7 +136,7 @@ public class FileController {
 
             return new ResponseEntity<>(resource, headers, HttpStatus.OK);
         } catch(Exception e) {
-            logger.warn("file download error - ", e);
+            logger.warn("file download error - ", e.getMessage(), e);
 
             return new ResponseEntity<Object>(null, HttpStatus.CONFLICT);
         }
