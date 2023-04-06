@@ -57,7 +57,7 @@ public class GameController {
 
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception e) {
-            logger.info(e.toString());
+            logger.info("get drop table error- " + e.getMessage(), e);
 
             return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
         }
@@ -82,7 +82,7 @@ public class GameController {
                 return new ResponseEntity<>(consumableItem, HttpStatus.OK);
             }
         } catch (Exception e) {
-            logger.info(e.toString());
+            logger.info("get consumable item - " + e.getMessage(), e);
 
             return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
         }
@@ -107,7 +107,7 @@ public class GameController {
                 return new ResponseEntity<>(equipmentItem, HttpStatus.OK);
             }
         } catch (Exception e) {
-            logger.info(e.toString());
+            logger.info("get equip item error - " + e.getMessage(), e);
 
             return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
         }
@@ -132,7 +132,7 @@ public class GameController {
                 return new ResponseEntity<>(monster, HttpStatus.OK);
             }
         } catch (Exception e) {
-            logger.info(e.toString());
+            logger.info("get monster error - " + e.getMessage(), e);
 
             return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
         }
@@ -157,7 +157,7 @@ public class GameController {
 
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
         } catch (Exception e) {
-            logger.info(e.toString());
+            logger.info("save history error - " + e.getMessage(), e);
 
             return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
         }
@@ -181,7 +181,7 @@ public class GameController {
 
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception e) {
-            logger.info(e.toString());
+            logger.info("get history error - " + e.getMessage(), e);
 
             return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
         }
