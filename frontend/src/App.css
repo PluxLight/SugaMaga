@@ -1,0 +1,70 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 경기천년제목 */
+@font-face {
+  font-family: "gyeonggi_title_bold";
+  src: url("./fonts/gyeonggi_title_bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "gyeonggi_title_light";
+  src: url("./fonts/gyeonggi_title_light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "gyeonggi_title_medium";
+  src: url("./fonts/gyeonggi_title_medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "gyeonggi_title_v_bold";
+  src: url("./fonts/gyeonggi_title_v_bold.ttf") format("truetype");
+}
+
+/* 경기천년바탕 */
+@font-face {
+  font-family: "gyeonggi_batang_bold";
+  src: url("./fonts/gyeonggi_batang_bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "gyeonggi_batang_regular";
+  src: url("./fonts/gyeonggi_batang_regular.ttf") format("truetype");
+}
