@@ -109,7 +109,7 @@ const Header = () => {
   return (
     <HeaderArea>
       <Menu>
-        <LogoStyle src="https://aeoragy.com/api/file/images/logo.png" onClick={ToHomePage} />
+        <LogoStyle src="https://sugamaga.aeoragy.com/api/file/images/logo.png" onClick={ToHomePage} />
         {FirstMenu}
       </Menu>
       <Menu2>

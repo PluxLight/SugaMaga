@@ -53,6 +53,6 @@ const MainArea = styled.div`
   display: flex;
   justify-content: center;
   margin: 0;
-  background-image: url("https://aeoragy.com/api/file/images/back.png");
+  background-image: url("https://sugamaga.aeoragy.com/api/file/images/back.png");
   background-size: cover;
 `;

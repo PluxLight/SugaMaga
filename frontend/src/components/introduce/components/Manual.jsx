@@ -118,8 +118,8 @@ const Manual = () => {
     return (
         <ManualStyle>
             <TitleTextStyle>조작법</TitleTextStyle>
-            <ImageStyle src="https://aeoragy.com/api/file/images/manual.png"></ImageStyle>
-            <ImageStyle src="https://aeoragy.com/api/file/images/keyboard.png"></ImageStyle>
+            <ImageStyle src="https://sugamaga.aeoragy.com/api/file/images/manual.png"></ImageStyle>
+            <ImageStyle src="https://sugamaga.aeoragy.com/api/file/images/keyboard.png"></ImageStyle>
             <TableStyle>
                 <thead>
                     <tr>
