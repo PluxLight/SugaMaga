@@ -20,7 +20,7 @@ const Intro = () => {
     return (
         <IntroStyle>
             <TitleTextStyle>설명</TitleTextStyle>
-            <ImageStyle src="https://aeoragy.com/api/file/images/logo.png" />
+            <ImageStyle src="https://sugamaga.aeoragy.com/api/file/images/logo.png" />
 
             
             <TitleTextStyle2>소개글</TitleTextStyle2>

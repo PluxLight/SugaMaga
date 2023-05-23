@@ -137,7 +137,7 @@ const Download = () => {
     const downloadEvent = () => {    
         axios({
             method: 'GET',
-            url: `https://aeoragy.com/api/file/download?fileName=Launcher.exe`,
+            url: `https://sugamaga.aeoragy.com/api/file/download?fileName=Launcher.exe`,
             responseType: "blob",
         }).then((response) => {
             // console.log(response);
@@ -183,7 +183,7 @@ const Download = () => {
             <PageHeader title="다운로드" horizonTitle="Download" />
             <DownloadArea>
                 <DownloadButton onClick={ downloadEvent } >
-                    <LogoStyle src={`https://aeoragy.com/api/file/images/` + images} />
+                    <LogoStyle src={`https://sugamaga.aeoragy.com/api/file/images/` + images} />
                     게임런처 다운로드
                 </DownloadButton>
             </DownloadArea>

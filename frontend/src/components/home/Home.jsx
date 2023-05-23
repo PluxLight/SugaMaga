@@ -43,7 +43,7 @@ function Home() {
   const slideImages = images.map((image) => {
         return (
           <SwiperSlide key={image.imagesIdx}>
-            <ImageStyle src={`https://aeoragy.com/api/file/images/${image.imagesName}`} />
+            <ImageStyle src={`https://sugamaga.aeoragy.com/api/file/images/${image.imagesName}`} />
           </SwiperSlide>
         );
     });
