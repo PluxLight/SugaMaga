@@ -18,7 +18,7 @@ import javax.persistence.*;
 public class UserCustom {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JoinColumn(name = "user_custom_idx")
     private int userCustomIdx;
 
