@@ -18,7 +18,7 @@ import javax.persistence.*;
 @DynamicInsert
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JoinColumn(name = "user_idx")
     private Long userIdx;
 
